@@ -2,11 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { ProductDetail } from "@/components/site/ProductDetail";
-import { LatestWorks } from "@/components/site/LatestWorks";
 import chineseImg from "@/assets/porcelain-chinese.jpg";
 import italianImg from "@/assets/porcelain-italian.jpg";
 
+type ProductSearch = {
+  type?: 'italian' | 'chinese';
+};
+
 export const Route = createFileRoute("/products")({
+  validateSearch: (search: Record<string, unknown>): ProductSearch => {
+    return {
+      type: search.type as 'italian' | 'chinese' | undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "منتجاتنا | شركة كيان المستقبل للرخام والبورسلان" },
@@ -18,12 +26,14 @@ export const Route = createFileRoute("/products")({
 });
 
 function ProductsPage() {
+  const { type } = Route.useSearch();
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
       <div className="pt-20" />
-      <ProductDetail variant="chinese" hero={chineseImg} />
-      <ProductDetail variant="italian" hero={italianImg} />
+      {(!type || type === 'chinese') && <ProductDetail variant="chinese" hero={chineseImg} />}
+      {(!type || type === 'italian') && <ProductDetail variant="italian" hero={italianImg} />}
       <Footer />
     </main>
   );
