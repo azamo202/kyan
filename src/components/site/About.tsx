@@ -1,5 +1,5 @@
-import aboutImg from "@/assets/about-showroom.jpg";
-import slabsImg from "@/assets/marble-slabs.jpg";
+import aboutImg from "@/assets/about.jpg";
+import slabsImg from "@/assets/about2.jpg";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function About() {

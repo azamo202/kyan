@@ -1,19 +1,61 @@
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Gem, Shield } from "lucide-react";
-import heroImg from "@/assets/hero-kitchen.jpg";
+import heroImg1 from "@/assets/Home.jpg";
+import heroImg2 from "@/assets/Home2.jpg";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function Hero() {
   const { t } = useI18n();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    { img: heroImg1, alt: "Modern luxury kitchen 1" },
+    { img: heroImg2, alt: "Modern luxury kitchen 2" },
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section id="home" className="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
-      <img src={heroImg} alt="Modern luxury kitchen" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1280} />
+      {slides.map((slide, index) => (
+        <img
+          key={index}
+          src={slide.img}
+          alt={slide.alt}
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+            index === currentSlide ? "opacity-100 scale-100" : "opacity-0 pointer-events-none scale-105"
+          }`}
+          width={1920}
+          height={1280}
+        />
+      ))}
       <div className="absolute inset-0 bg-black/40" />
 
-      <button aria-label="previous" className="absolute end-3 md:end-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-teal text-white flex items-center justify-center hover:bg-teal-dark hover:scale-110 transition-all shadow-lg">
+      <button
+        onClick={nextSlide}
+        aria-label="next"
+        className="absolute end-3 md:end-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-teal text-white flex items-center justify-center hover:bg-teal-dark hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
+      >
         <ChevronRight className="w-5 h-5 rtl:hidden" />
         <ChevronLeft className="w-5 h-5 hidden rtl:block" />
       </button>
-      <button aria-label="next" className="absolute start-3 md:start-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-teal text-white flex items-center justify-center hover:bg-teal-dark hover:scale-110 transition-all shadow-lg">
+      <button
+        onClick={prevSlide}
+        aria-label="previous"
+        className="absolute start-3 md:start-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-teal text-white flex items-center justify-center hover:bg-teal-dark hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
+      >
         <ChevronLeft className="w-5 h-5 rtl:hidden" />
         <ChevronRight className="w-5 h-5 hidden rtl:block" />
       </button>
