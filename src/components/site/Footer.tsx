@@ -1,6 +1,6 @@
-import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
-import logoFooter from "@/assets/18.png";
+import logoFooter from "@/assets/images/18.png";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function Footer() {
@@ -34,11 +34,19 @@ export function Footer() {
           <img src={logoFooter} alt="Future Kayan — كيان المستقبل" className="h-20 w-auto mb-4 object-contain" />
           <p className="text-white/60 text-xs leading-relaxed mb-5">{t("footer.tagline")}</p>
           <div className="flex gap-2">
-            {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
-              <a key={i} href="#" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-teal text-white flex items-center justify-center transition-colors">
-                <Icon className="w-4 h-4" />
-              </a>
-            ))}
+            <a href="#" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-teal text-white flex items-center justify-center transition-colors">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="#" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-teal text-white flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 512 512" fill="currentColor" className="w-4.5 h-4.5">
+                <path d="M256 48c-79.8 0-133 50.8-133 116.8 0 28.4 9.1 57.8 25.2 85.8 12.4 21.5 16.4 36.3 13 50.2-2.8 11.4-10.9 22.9-22 31.3-7.7 5.9-10.6 16.2-7.1 25.1 3.4 8.9 12 14.8 21.5 14.8h204.4c9.5 0 18.1-5.9 21.5-14.8 3.5-8.9.6-19.3-7.1-25.1-11-8.4-19.2-19.9-22-31.3-3.4-13.9.2-28.7 13-50.2 16.1-28 25.2-57.4 25.2-85.8C389.6 98.8 336.4 48 256 48z"/>
+              </svg>
+            </a>
+            <a href="#" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-teal text-white flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 448 512" fill="currentColor" className="w-4 h-4">
+                <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25v178.72A162.55 162.55 0 1 1 185 188.31v89.89a72.69 72.69 0 1 0 40.3 65.4V32H315a117.84 117.84 0 0 0 10.07 49.13A116.66 116.66 0 0 0 365 119.56a117.82 117.82 0 0 0 83 34.35v56z"/>
+              </svg>
+            </a>
           </div>
         </div>
 

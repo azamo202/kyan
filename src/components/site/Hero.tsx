@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Gem, Shield } from "lucide-react";
-import heroImg1 from "@/assets/Home.jpg";
-import heroImg2 from "@/assets/Home2.jpg";
+import { ChevronLeft, ChevronRight, Shield } from "lucide-react";
+import heroImg1 from "@/assets/images/Home.jpg";
+import heroImg2 from "@/assets/images/Home2.jpg";
 import { useI18n } from "@/i18n/I18nProvider";
+import { Gem } from 'lucide-react';
 
 export function Hero() {
   const { t } = useI18n();
@@ -28,7 +29,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-[100vh] flex items-end justify-center pb-32 md:pb-40 overflow-hidden">
       {slides.map((slide, index) => (
         <img
           key={index}
@@ -60,23 +61,20 @@ export function Hero() {
         <ChevronRight className="w-5 h-5 hidden rtl:block" />
       </button>
 
-      <div className="relative z-10 text-center px-4 max-w-4xl">
-        <h1 className="text-white font-black leading-tight tracking-wide drop-shadow-2xl">
-          <span className="block text-5xl md:text-7xl lg:text-8xl">{t("hero.title1")}</span>
-          <span className="block text-5xl md:text-7xl lg:text-8xl mt-2">
-            {t("hero.title2a")} <span className="text-teal">{t("hero.title2b")}</span>
-          </span>
-        </h1>
-        <div className="mt-10 md:mt-12 flex items-center justify-center gap-4 md:gap-6 flex-wrap">
-          <a href="#products" className="inline-flex items-center gap-2 bg-teal hover:bg-teal-dark text-white px-6 md:px-8 py-3 md:py-3.5 rounded-md font-medium transition-all hover:scale-105 shadow-lg">
-            <ChevronLeft className="w-4 h-4 rtl:hidden" />
-            <ChevronRight className="w-4 h-4 hidden rtl:block" />
+      <div className="relative z-10 text-center px-4 max-w-4xl flex flex-col items-center mb-0">
+        <div className="mb-4 md:mb-5 flex items-center justify-center gap-4 md:gap-6 flex-wrap">
+          <a href="#products" className="inline-flex items-center gap-1.5 bg-teal hover:bg-teal-dark text-white px-5 py-2.5 md:px-7 md:py-3 rounded-full text-xs md:text-sm font-medium transition-all hover:scale-105 shadow-md">
+            <ChevronLeft className="w-3.5 h-3.5 rtl:hidden" />
+            <ChevronRight className="w-3.5 h-3.5 hidden rtl:block" />
             <span>{t("hero.cta1")}</span>
           </a>
-          <a href="#contact" className="text-white font-medium border-b-2 border-teal pb-1 hover:text-teal transition-colors">
+          <a href="#contact" className="text-white/90 text-xs md:text-sm font-medium border-b border-teal/40 hover:border-teal pb-0.5 hover:text-white transition-colors">
             {t("hero.cta2")}
           </a>
         </div>
+        <h1 className="text-white font-medium leading-tight tracking-wide drop-shadow-md text-lg md:text-2xl lg:text-3xl">
+          {t("hero.title1")} {t("hero.title2a")} <span className="text-teal">{t("hero.title2b")}</span>
+        </h1>
       </div>
 
       <FeatureStrip />
@@ -92,15 +90,15 @@ function FeatureStrip() {
     { icon: Shield, title: t("hero.f3.t"), desc: t("hero.f3.d") },
   ];
   return (
-    <div className="absolute bottom-6 md:bottom-10 inset-x-0 px-4 z-10">
-      <div className="max-w-5xl mx-auto bg-black/60 backdrop-blur-md rounded-2xl px-4 md:px-8 py-4 md:py-5">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/15">
+    <div className="absolute bottom-6 md:bottom-10 inset-x-0 px-2 md:px-4 z-10">
+      <div className="max-w-5xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl md:px-8 py-3 md:py-5 border border-white/5">
+        <div className="flex md:grid md:grid-cols-3 overflow-x-auto gap-2 md:gap-0 divide-x-0 md:divide-x divide-white/10 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
           {features.map((f) => (
-            <div key={f.title} className="flex items-center gap-4 px-2 md:px-6 py-3 md:py-0 justify-center md:justify-start">
-              <div className="text-teal shrink-0"><f.icon className="w-9 h-9 md:w-10 md:h-10" /></div>
+            <div key={f.title} className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-0 min-w-[260px] md:min-w-0 snap-center justify-start">
+              <div className="text-teal/90 shrink-0"><f.icon className="w-8 h-8 md:w-10 md:h-10" /></div>
               <div className="text-start">
-                <div className="text-white font-bold text-sm md:text-base">{f.title}</div>
-                <div className="text-white/70 text-xs md:text-sm">{f.desc}</div>
+                <div className="text-white/90 font-medium text-sm md:text-base mb-0.5">{f.title}</div>
+                <div className="text-white/60 text-xs md:text-sm leading-snug">{f.desc}</div>
               </div>
             </div>
           ))}

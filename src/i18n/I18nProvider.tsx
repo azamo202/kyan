@@ -14,7 +14,7 @@ const dict: Dict = {
   "nav.lang": { ar: "EN", en: "AR" },
 
   // hero
-  "hero.title1": { ar: "جمـال الرخـام", en: "The Beauty of Marble" },
+  "hero.title1": { ar: "جمـال البورسلان", en: "The Beauty of Porcelain" },
   "hero.title2a": { ar: "يـدوم مـع", en: "Lasts with" },
   "hero.title2b": { ar: "كيـان", en: "Kayan" },
   "hero.cta1": { ar: "استكشف أعمالنا", en: "Explore Our Work" },
@@ -29,21 +29,21 @@ const dict: Dict = {
   // about
   "about.who": { ar: "من نحن", en: "Who We Are" },
   "about.whoText": {
-    ar: "شركة كيان المستقبل للرخام والبورسلان هي شركة متخصصة في تصنيع وتركيب منتجات الرخام والبورسلان. تقدم الشركة مجموعة واسعة من المنتجات مثل ألواح البورسلان للمطابخ المغاسل، وأسطح المطابخ. مصنع الشركة مجهز بأحدث الآلات والمعدات المتخصصة، ويعمل به فريق من الفنيين المهرة لضمان تقديم منتجات عالية الجودة تلبي احتياجات العملاء.",
-    en: "Future Kayan Marble & Porcelain specializes in manufacturing and installing premium marble and porcelain products. We offer a wide range of porcelain slabs for kitchens, vanities, and countertops. Our factory is equipped with the latest specialized machinery and staffed by skilled technicians who deliver products that meet our clients' needs.",
+    ar: "شركة كيان المستقبل للبورسلان هي شركة متخصصة في تصنيع وتركيب منتجات البورسلان. تقدم الشركة مجموعة واسعة من المنتجات مثل ألواح البورسلان للمطابخ المغاسل، وأسطح المطابخ. مصنع الشركة مجهز بأحدث الآلات والمعدات المتخصصة، ويعمل به فريق من الفنيين المهرة لضمان تقديم منتجات عالية الجودة تلبي احتياجات العملاء.",
+    en: "Future Kayan Porcelain specializes in manufacturing and installing premium porcelain products. We offer a wide range of porcelain slabs for kitchens, vanities, and countertops. Our factory is equipped with the latest specialized machinery and staffed by skilled technicians who deliver products that meet our clients' needs.",
   },
   "about.mission": { ar: "رسالتنا", en: "Our Mission" },
   "about.missionText": {
-    ar: "رسالة شركة كيان المستقبل للرخام والبورسلان تتمثل في تقديم منتجات عالية الجودة من الرخام والبورسلان تلبي احتياجات وتوقعات العملاء. تسعى الشركة لتحقيق التميز من خلال الابتكار المستمر واستخدام أحدث التقنيات في التصنيع والتركيب، مع الالتزام بأعلى معايير الجودة وخدمة العملاء.",
-    en: "Our mission is to deliver high-quality marble and porcelain products that meet and exceed our customers' expectations. We pursue excellence through continuous innovation, the latest manufacturing and installation technologies, and an unwavering commitment to quality and service.",
+    ar: "رسالة شركة كيان المستقبل للبورسلان تتمثل في تقديم منتجات عالية الجودة من البورسلان تلبي احتياجات وتوقعات العملاء. تسعى الشركة لتحقيق التميز من خلال الابتكار المستمر واستخدام أحدث التقنيات في التصنيع والتركيب، مع الالتزام بأعلى معايير الجودة وخدمة العملاء.",
+    en: "Our mission is to deliver high-quality porcelain products that meet and exceed our customers' expectations. We pursue excellence through continuous innovation, the latest manufacturing and installation technologies, and an unwavering commitment to quality and service.",
   },
 
   // products listing
   "products.label": { ar: "منتجاتنا", en: "Our Products" },
   "products.title": { ar: "تصنيفاتنا الرئيسية", en: "Main Categories" },
   "products.subtitle": {
-    ar: "اكتشف تشكيلاتنا المختارة من أجود أنواع الرخام والبورسلان بأعلى معايير الجودة والتصميم",
-    en: "Discover our curated selection of finest marble and porcelain with the highest standards of quality and design.",
+    ar: "اكتشف تشكيلاتنا المختارة من أجود أنواع البورسلان بأعلى معايير الجودة والتصميم",
+    en: "Discover our curated selection of finest porcelain with the highest standards of quality and design.",
   },
   "products.italian": { ar: "البورسلان الإيطالي", en: "Italian Porcelain" },
   "products.chinese": { ar: "البورسلان الصيني", en: "Chinese Porcelain" },
@@ -74,6 +74,9 @@ const dict: Dict = {
   "works.hpl": { ar: "اتش بي ال", en: "HPL" },
   "works.before": { ar: "قبل التنفيذ", en: "Before" },
   "works.after": { ar: "بعد التنفيذ", en: "After" },
+  "works.project1": { ar: "المطبخ الأول", en: "Kitchen 1" },
+  "works.project2": { ar: "المطبخ الثاني", en: "Kitchen 2" },
+  "works.project3": { ar: "المطبخ الثالث", en: "Kitchen 3" },
 
   // contact
   "contact.label": { ar: "تواصل معنا", en: "Contact" },
@@ -91,14 +94,15 @@ const dict: Dict = {
   "contact.submit": { ar: "إرسال الرسالة", en: "Send Message" },
   "contact.info": { ar: "معلومات التواصل", en: "Contact Info" },
   "contact.phone": { ar: "الهاتف", en: "Phone" },
+  "contact.phonePh": { ar: "05xxxxxxxx", en: "05xxxxxxxx" },
   "contact.location": { ar: "الموقع", en: "Location" },
   "contact.locationVal": { ar: "بنها شارع المناخ، الرياض 14316", en: "Al-Manakh St., Riyadh 14316" },
   "contact.follow": { ar: "تابعنا على", en: "Follow Us" },
 
   // footer
   "footer.tagline": {
-    ar: "شركة كيان المستقبل للرخام والبورسلان هي شركة متخصصة في تصنيع وتركيب منتجات الرخام والبورسلان.",
-    en: "Future Kayan Marble & Porcelain — specialists in manufacturing and installing premium marble and porcelain products.",
+    ar: "شركة كيان المستقبل للبورسلان هي شركة متخصصة في تصنيع وتركيب منتجات البورسلان.",
+    en: "Future Kayan Porcelain — specialists in manufacturing and installing premium porcelain products.",
   },
   "footer.contact": { ar: "معلومات التواصل", en: "Contact Info" },
   "footer.support": { ar: "دعم 24/7", en: "24/7 Support" },

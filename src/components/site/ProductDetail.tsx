@@ -71,12 +71,12 @@ const productsData: Product[] = [
   
   // Italian Sinks / Vanities
   { id: "36", img: img36, nameAr: "مغسلة بورسلان حوض فردي مودرن", nameEn: "Modern Single Basin Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "100x50 سم" },
-  { id: "37", img: img37, nameAr: "مغسلة رخامية فاخرة مدمجة بالجدار", nameEn: "Integrated Luxury Wall Marble Sink", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "120x50 سم" },
+  { id: "37", img: img37, nameAr: "مغسلة بورسلان فاخرة مدمجة بالجدار", nameEn: "Integrated Luxury Wall Porcelain Sink", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "120x50 سم" },
   { id: "38", img: img38, nameAr: "مغسلة بورسلان رمادية مدمجة عصرية", nameEn: "Modern Grey Integrated Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "110x50 سم" },
   { id: "39", img: img39, nameAr: "مغسلة بورسلان حوضين معلقة مريحة", nameEn: "Double Basin Wall-Hung Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "160x50 سم" },
   { id: "40", img: img40, nameAr: "مغسلة بورسلان أسود ذهبي فاخرة", nameEn: "Premium Black & Gold Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "120x55 سم" },
   { id: "41", img: img41, nameAr: "مغسلة بورسلان بيضاء مع أرفف تخزين", nameEn: "White Porcelain Vanity with Shelves", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "90x50 سم" },
-  { id: "42", img: img42, nameAr: "مغسلة رخام طبيعي إمبراطور منقوشة", nameEn: "Carved Emperador Natural Marble Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "100x50 سم" },
+  { id: "42", img: img42, nameAr: "مغسلة بورسلان إمبراطور منقوشة", nameEn: "Carved Emperador Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "100x50 سم" },
   { id: "43", img: img43, nameAr: "مغسلة بورسلان رمادي مع إضاءة LED", nameEn: "Grey Porcelain Vanity with LED Space", type: "italian", tag: "vanity", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "120x50 سم" },
   { id: "44", img: img44, nameAr: "مغسلة بورسلان كلاسيكية بيج ناعم", nameEn: "Classic Soft Beige Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "80x50 سم" },
   { id: "323", img: img323, nameAr: "مغسلة بورسلان كيان الفاخرة الخاصة", nameEn: "Kayan Signature Premium Vanity", type: "italian", tag: "vanity", finishAr: "مصقول كريستال", finishEn: "Crystal Polished", size: "140x55 سم" },
@@ -166,7 +166,7 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
     if (variant === "italian") {
       return [
         { id: "all", labelAr: "الكل", labelEn: "All" },
-        { id: "slab", labelAr: "ألواح البورسلان والرخام", labelEn: "Slabs & Tiles" },
+        { id: "slab", labelAr: "ألواح البورسلان", labelEn: "Slabs & Tiles" },
         { id: "vanity", labelAr: "المغاسل الفاخرة", labelEn: "Luxury Vanities" },
       ];
     } else {
@@ -333,7 +333,7 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
                 <span className="inline-block text-xs font-semibold bg-teal text-white px-3 py-1 rounded-full">
                   {activeProduct.tag === "vanity" ? (lang === "ar" ? "مغسلة فاخرة" : "Premium Vanity") :
                    activeProduct.tag === "countertop" ? (lang === "ar" ? "سطح مطبخ بورسلان" : "Porcelain Countertop") :
-                   (lang === "ar" ? "لوح بورسلان/رخام" : "Porcelain/Marble Slab")}
+                   (lang === "ar" ? "لوح بورسلان" : "Porcelain Slab")}
                 </span>
 
                 <div className="text-xs font-mono text-white/50">

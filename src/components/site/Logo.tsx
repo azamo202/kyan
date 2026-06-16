@@ -1,4 +1,4 @@
-import logoImg from "@/assets/1.png";
+import logoImg from "@/assets/images/1.png";
 
 export function Logo({ variant = "dark", className = "" }: { variant?: "dark" | "light"; className?: string }) {
   return (
