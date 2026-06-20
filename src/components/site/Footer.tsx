@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin, Instagram } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
-import logoFooter from "@/assets/images/18.png";
+import logoFooter from "@/assets/images/18.webp";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function Footer() {
@@ -56,8 +56,8 @@ export function Footer() {
             <li className="flex items-start gap-2">
               <Phone className="w-4 h-4 text-teal mt-0.5 shrink-0" />
               <div>
-                <div>+966 546111600</div>
-                <div>+966 532563637</div>
+                <div><span dir="ltr">+966 546111600</span></div>
+                <div><span dir="ltr">+966 532563637</span></div>
                 <div className="text-white/50 mt-0.5">{t("footer.support")}</div>
               </div>
             </li>
@@ -96,8 +96,7 @@ export function Footer() {
         <div>
           <h4 className="font-bold mb-4 text-base">{t("footer.products")}</h4>
           <ul className="space-y-2.5 text-xs text-white/70">
-            <li><Link to="/products" className="hover:text-teal underline-offset-2 hover:underline transition-colors">{t("products.italian")}</Link></li>
-            <li><Link to="/products" className="hover:text-teal underline-offset-2 hover:underline transition-colors">{t("products.chinese")}</Link></li>
+            <li><Link to="/products/chinese" className="hover:text-teal underline-offset-2 hover:underline transition-colors">{t("products.chinese")}</Link></li>
           </ul>
         </div>
       </div>

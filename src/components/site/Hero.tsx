@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Shield } from "lucide-react";
-import heroImg1 from "@/assets/images/Home.jpg";
-import heroImg2 from "@/assets/images/Home2.jpg";
+import heroImg1 from "@/assets/images/Home.webp";
+import heroImg2 from "@/assets/images/Home2.webp";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Gem } from 'lucide-react';
 

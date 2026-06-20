@@ -12,15 +12,7 @@ export function Navbar() {
   const navItems = [
     { label: t("nav.home"), to: "/" as const, hash: "#home", match: "/" },
     { label: t("nav.about"), to: "/" as const, hash: "#about", match: "/#about" },
-    { 
-      label: t("nav.products"), 
-      to: "/products" as const, 
-      match: "/products",
-      subItems: [
-        { label: t("products.italian"), to: "/products" as const, search: { type: 'italian' } },
-        { label: t("products.chinese"), to: "/products" as const, search: { type: 'chinese' } },
-      ]
-    },
+    { label: t("nav.products"), to: "/products/chinese" as const, match: "/products" },
     { label: t("works.label"), to: "/" as const, hash: "#works", match: "/#works" },
     { label: t("nav.partners"), to: "/" as const, hash: "#partners", match: "/#partners" },
   ];
@@ -62,7 +54,6 @@ export function Navbar() {
                         <li key={sub.label}>
                           <Link
                             to={sub.to}
-                            search={sub.search}
                             className="block px-4 py-2 hover:bg-teal/5 text-ink hover:text-teal transition-colors"
                           >
                             {sub.label}
@@ -121,7 +112,7 @@ export function Navbar() {
               <Link
                 to={item.to}
                 hash={item.hash}
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   if (!item.subItems) {
                     setOpen(false);
                     handleScroll(e, item.hash);
@@ -137,7 +128,6 @@ export function Navbar() {
                     <Link
                       key={sub.label}
                       to={sub.to}
-                      search={sub.search}
                       onClick={() => setOpen(false)}
                       className="block text-ink/80 text-sm font-medium hover:text-teal py-1"
                     >

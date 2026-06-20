@@ -1,21 +1,21 @@
 import { useI18n } from "@/i18n/I18nProvider";
 
-import p2 from "@/assets/Brands/2.png";
-import p3 from "@/assets/Brands/3.png";
-import p4 from "@/assets/Brands/4.png";
-import p5 from "@/assets/Brands/5.png";
-import p6 from "@/assets/Brands/6.png";
-import p7 from "@/assets/Brands/7.png";
-import p8 from "@/assets/Brands/8.png";
-import p9 from "@/assets/Brands/9.png";
-import p10 from "@/assets/Brands/10.png";
-import p11 from "@/assets/Brands/11.png";
-import p12 from "@/assets/Brands/12.png";
-import p13 from "@/assets/Brands/13.png";
-import p14 from "@/assets/Brands/14.png";
-import p15 from "@/assets/Brands/15.png";
-import p16 from "@/assets/Brands/16.png";
-import p17 from "@/assets/Brands/17.png";
+import p2 from "@/assets/Brands/2.webp";
+import p3 from "@/assets/Brands/3.webp";
+import p4 from "@/assets/Brands/4.webp";
+import p5 from "@/assets/Brands/5.webp";
+import p6 from "@/assets/Brands/6.webp";
+import p7 from "@/assets/Brands/7.webp";
+import p8 from "@/assets/Brands/8.webp";
+import p9 from "@/assets/Brands/9.webp";
+import p10 from "@/assets/Brands/10.webp";
+import p11 from "@/assets/Brands/11.webp";
+import p12 from "@/assets/Brands/12.webp";
+import p13 from "@/assets/Brands/13.webp";
+import p14 from "@/assets/Brands/14.webp";
+import p15 from "@/assets/Brands/15.webp";
+import p16 from "@/assets/Brands/16.webp";
+import p17 from "@/assets/Brands/17.webp";
 
 // يمكنك هنا تعديل الروابط الخاصة بكل شريك بكل سهولة
 const partners = [

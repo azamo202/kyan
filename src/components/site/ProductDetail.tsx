@@ -1,47 +1,13 @@
 import { useState, useMemo, useEffect } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
-import { ChevronLeft, ChevronRight, Search, X, MessageSquare, ZoomIn } from "lucide-react";
-
-// Import all 33 images
-import img20 from "@/assets/20.png";
-import img21 from "@/assets/21.png";
-import img22 from "@/assets/22.png";
-import img23 from "@/assets/23.png";
-import img24 from "@/assets/24.png";
-import img25 from "@/assets/25.png";
-import img26 from "@/assets/26.png";
-import img27 from "@/assets/27.png";
-import img28 from "@/assets/28.png";
-import img29 from "@/assets/29.png";
-import img30 from "@/assets/30.png";
-import img31 from "@/assets/31.png";
-import img33 from "@/assets/33.png";
-import img34 from "@/assets/34.png";
-import img35 from "@/assets/35.png";
-import img36 from "@/assets/36.png";
-import img37 from "@/assets/37.png";
-import img38 from "@/assets/38.png";
-import img39 from "@/assets/39.png";
-import img40 from "@/assets/40.png";
-import img41 from "@/assets/41.png";
-import img42 from "@/assets/42.png";
-import img43 from "@/assets/43.png";
-import img44 from "@/assets/44.png";
-import img45 from "@/assets/45.png";
-import img46 from "@/assets/46.png";
-import img47 from "@/assets/47.png";
-import img48 from "@/assets/48.png";
-import img49 from "@/assets/49.png";
-import img50 from "@/assets/50.png";
-import img51 from "@/assets/51.png";
-import img52 from "@/assets/52.png";
-import img323 from "@/assets/323.png";
+import { ChevronLeft, ChevronRight, X, MessageSquare, ZoomIn, ShieldCheck, Flame, Droplets, FlaskConical } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 
 type Variant = "italian" | "chinese";
 
 interface Product {
   id: string;
-  img: string;
+  images: string[];
   nameAr: string;
   nameEn: string;
   type: Variant;
@@ -51,77 +17,44 @@ interface Product {
   size: string;
 }
 
-const productsData: Product[] = [
-  // Italian Porcelain Slabs
-  { id: "20", img: img20, nameAr: "ألواح بورسلان إيطالي رمادي فاخر", nameEn: "Luxury Grey Italian Porcelain Slab", type: "italian", tag: "slab", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "160x320 سم" },
-  { id: "21", img: img21, nameAr: "بورسلان كلكتا عروق ذهبية", nameEn: "Calacatta Gold Porcelain Slab", type: "italian", tag: "slab", finishAr: "مصقول لامع", finishEn: "Polished", size: "160x320 سم" },
-  { id: "22", img: img22, nameAr: "طاولة بورسلان مودرن دائرية", nameEn: "Modern Round Porcelain Table", type: "italian", tag: "slab", finishAr: "مصقول", finishEn: "Polished", size: "حسب الطلب" },
-  { id: "23", img: img23, nameAr: "ألواح بورسلان أسود ملكي مصقول", nameEn: "Royal Black Polished Porcelain", type: "italian", tag: "slab", finishAr: "مصقول عالي اللمعان", finishEn: "High Gloss Polished", size: "160x320 سم" },
-  { id: "24", img: img24, nameAr: "بورسلان ستاتيواريو كلاسيك", nameEn: "Statuario Classic Porcelain Slab", type: "italian", tag: "slab", finishAr: "مصقول لامع", finishEn: "Polished", size: "160x320 سم" },
-  { id: "25", img: img25, nameAr: "تصميم جداري بورسلان بوكماتش متناسق", nameEn: "Bookmatch Porcelain Wall Design", type: "italian", tag: "slab", finishAr: "مصقول عالي اللمعان", finishEn: "High Gloss Polished", size: "320x320 سم" },
-  { id: "26", img: img26, nameAr: "بورسلان رمادي داكن ناعم", nameEn: "Soft Dark Grey Porcelain Slab", type: "italian", tag: "slab", finishAr: "مطفي", finishEn: "Matte", size: "120x280 سم" },
-  { id: "27", img: img27, nameAr: "بورسلان بيج كلاسيكي دافئ", nameEn: "Classic Warm Beige Porcelain", type: "italian", tag: "slab", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "120x240 سم" },
-  { id: "28", img: img28, nameAr: "ألواح بورسلان برونزي فاخرة", nameEn: "Luxury Bronze Porcelain Slab", type: "italian", tag: "slab", finishAr: "مطفي ميتاليك", finishEn: "Matte Metallic", size: "160x320 سم" },
-  { id: "29", img: img29, nameAr: "بورسلان رمادي عروق بيضاء", nameEn: "Grey Veined White Porcelain", type: "italian", tag: "slab", finishAr: "مصقول", finishEn: "Polished", size: "120x280 سم" },
-  { id: "30", img: img30, nameAr: "لوح بورسلان سوبر وايت مصقول", nameEn: "Polished Super White Porcelain", type: "italian", tag: "slab", finishAr: "مصقول عالي اللمعان", finishEn: "High Gloss Polished", size: "160x320 سم" },
-  { id: "31", img: img31, nameAr: "بورسلان إسباني رمادي ناعم", nameEn: "Luxury Spanish Soft Grey Porcelain", type: "italian", tag: "slab", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "120x260 سم" },
-  { id: "33", img: img33, nameAr: "لوح بورسلان ترافنتينو كلاسيكي", nameEn: "Classic Travertine Porcelain Slab", type: "italian", tag: "slab", finishAr: "مطفي محفر", finishEn: "Textured Matte", size: "160x320 سم" },
-  { id: "34", img: img34, nameAr: "لوح بورسلان ميتاليك أسود داكن", nameEn: "Metallic Dark Black Porcelain Slab", type: "italian", tag: "slab", finishAr: "مطفي ميتاليك", finishEn: "Matte Metallic", size: "120x280 سم" },
-  { id: "35", img: img35, nameAr: "لوح بورسلان أونيكس بلورات زرقاء فاخرة", nameEn: "Luxury Blue Onyx Porcelain", type: "italian", tag: "slab", finishAr: "مصقول كريستال", finishEn: "Crystal Polished", size: "160x320 سم" },
-  
-  // Italian Sinks / Vanities
-  { id: "36", img: img36, nameAr: "مغسلة بورسلان حوض فردي مودرن", nameEn: "Modern Single Basin Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "100x50 سم" },
-  { id: "37", img: img37, nameAr: "مغسلة بورسلان فاخرة مدمجة بالجدار", nameEn: "Integrated Luxury Wall Porcelain Sink", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "120x50 سم" },
-  { id: "38", img: img38, nameAr: "مغسلة بورسلان رمادية مدمجة عصرية", nameEn: "Modern Grey Integrated Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "110x50 سم" },
-  { id: "39", img: img39, nameAr: "مغسلة بورسلان حوضين معلقة مريحة", nameEn: "Double Basin Wall-Hung Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "160x50 سم" },
-  { id: "40", img: img40, nameAr: "مغسلة بورسلان أسود ذهبي فاخرة", nameEn: "Premium Black & Gold Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "120x55 سم" },
-  { id: "41", img: img41, nameAr: "مغسلة بورسلان بيضاء مع أرفف تخزين", nameEn: "White Porcelain Vanity with Shelves", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "90x50 سم" },
-  { id: "42", img: img42, nameAr: "مغسلة بورسلان إمبراطور منقوشة", nameEn: "Carved Emperador Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مصقول", finishEn: "Polished", size: "100x50 سم" },
-  { id: "43", img: img43, nameAr: "مغسلة بورسلان رمادي مع إضاءة LED", nameEn: "Grey Porcelain Vanity with LED Space", type: "italian", tag: "vanity", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "120x50 سم" },
-  { id: "44", img: img44, nameAr: "مغسلة بورسلان كلاسيكية بيج ناعم", nameEn: "Classic Soft Beige Porcelain Vanity", type: "italian", tag: "vanity", finishAr: "مطفي", finishEn: "Matte", size: "80x50 سم" },
-  { id: "323", img: img323, nameAr: "مغسلة بورسلان كيان الفاخرة الخاصة", nameEn: "Kayan Signature Premium Vanity", type: "italian", tag: "vanity", finishAr: "مصقول كريستال", finishEn: "Crystal Polished", size: "140x55 سم" },
+const imagesGlob = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
 
-  // Chinese Kitchen Countertops
-  { id: "45", img: img45, nameAr: "سطح مطبخ بورسلان مقاوم للحرارة والخدش", nameEn: "Heat-Resistant Porcelain Kitchen Countertop", type: "chinese", tag: "countertop", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "حسب تصميم المطبخ" },
-  { id: "46", img: img46, nameAr: "سطح مطبخ بورسلان كلكتا رمادي فاخر", nameEn: "Calacatta Grey Veined Countertop", type: "chinese", tag: "countertop", finishAr: "مصقول مقاوم للبقع", finishEn: "Stain-Resistant Polished", size: "حسب تصميم المطبخ" },
-  { id: "47", img: img47, nameAr: "سطح جزيرة مطبخ بورسلان بتصميم متكامل", nameEn: "Integrated Porcelain Kitchen Island", type: "chinese", tag: "countertop", finishAr: "مطفي", finishEn: "Matte", size: "حسب الطلب" },
-  { id: "48", img: img48, nameAr: "سطح عمل مطبخ بورسلان أسود بركان", nameEn: "Black Volcano Porcelain Worktop", type: "chinese", tag: "countertop", finishAr: "مطفي محفر", finishEn: "Textured Matte", size: "حسب تصميم المطبخ" },
-  { id: "49", img: img49, nameAr: "سطح مطبخ بورسلان كوارتز رمادي مودرن", nameEn: "Modern Grey Quartz Porcelain Countertop", type: "chinese", tag: "countertop", finishAr: "مطفي", finishEn: "Matte", size: "حسب الطلب" },
-  { id: "50", img: img50, nameAr: "سطح مطبخ بورسلان أبيض ثلجي ناصع", nameEn: "Snow White Porcelain Kitchen Surface", type: "chinese", tag: "countertop", finishAr: "مصقول", finishEn: "Polished", size: "حسب تصميم المطبخ" },
-  { id: "51", img: img51, nameAr: "سطح مطبخ بورسلان بيج دافئ مقاوم للرطوبة", nameEn: "Moisture-Resistant Beige Porcelain Countertop", type: "chinese", tag: "countertop", finishAr: "مطفي ناعم", finishEn: "Soft Matte", size: "حسب تصميم المطبخ" },
-  { id: "52", img: img52, nameAr: "سطح مطبخ بورسلان برونزي بتصميم فاخر", nameEn: "Premium Bronze Porcelain Countertop", type: "chinese", tag: "countertop", finishAr: "مطفي ميتاليك", finishEn: "Matte Metallic", size: "حسب الطلب" }
+const productsData: Product[] = [
+  { id: "001", nameEn: "Alice Gold", nameAr: "أليس جولد", images: ["/src/assets/Alice Gold/Alice Gold Polshied.webp", "/src/assets/Alice Gold/Alice Gold Polshied1.webp", "/src/assets/Alice Gold/Alice Gold Polshied2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "002", nameEn: "Arbeescato", nameAr: "ارابيسكاتو", images: ["/src/assets/Arbeescato/Arbeescato.webp", "/src/assets/Arbeescato/Arbeescato2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "003", nameEn: "ARCTIC OCEAN", nameAr: "أركتيك أوشن", images: ["/src/assets/ARCTIC OCEAN/ARCTIC OCEAN.webp", "/src/assets/ARCTIC OCEAN/ARCTIC OCEAN1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "004", nameEn: "Armani Dark Grey", nameAr: "أرماني رمادي غامق", images: ["/src/assets/Armani Dark Grey/Armani Dark Grey.webp", "/src/assets/Armani Dark Grey/Armani Dark Grey1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "005", nameEn: "Bouique Calartte Gold", nameAr: "بوتيك كلكتا جولد", images: ["/src/assets/Bouique Calartte Gold/Bouique Calartte Gold.webp", "/src/assets/Bouique Calartte Gold/Bouique Calartte Gold1.webp", "/src/assets/Bouique Calartte Gold/Bouique Calartte Gold2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "006", nameEn: "Bvlgari Black", nameAr: "بولغاري أسود", images: ["/src/assets/Bvlgari Black/Bvlgari Black.webp", "/src/assets/Bvlgari Black/Bvlgari Black1.webp", "/src/assets/Bvlgari Black/Bvlgari Black2.webp", "/src/assets/Bvlgari Black/Bvlgari Black3.webp", "/src/assets/Bvlgari Black/Bvlgari Black4.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "007", nameEn: "Calactta Gold-X", nameAr: "كلكتا جولد إكس", images: ["/src/assets/Calactta Gold-X/Calactta Gold-X.webp", "/src/assets/Calactta Gold-X/Calartte Gold 1.webp", "/src/assets/Calactta Gold-X/Calartte Gold.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "008", nameEn: "Calctta Macchia Vecchia", nameAr: "كلكتا ماكيا فيكيا", images: ["/src/assets/Calctta Macchia Vecchia/Calctta Macchia Vecchia.webp", "/src/assets/Calctta Macchia Vecchia/Calctta Macchia Vecchia1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "009", nameEn: "CHARM  IVORY", nameAr: "تشارم آيفوري", images: ["/src/assets/CHARM  IVORY/CHARM  IVORY.webp", "/src/assets/CHARM  IVORY/CHARM  IVORY1.webp", "/src/assets/CHARM  IVORY/CHARM  IVORY2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "010", nameEn: "CRISTALLO AMBRA", nameAr: "كريستالو أمبرا", images: ["/src/assets/CRISTALLO AMBRA/CRISTALLO AMBRA.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "011", nameEn: "GOLD JADE", nameAr: "جولد جيد", images: ["/src/assets/GOLD JADE/GOLD JADE.webp", "/src/assets/GOLD JADE/GOLD JADE1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "012", nameEn: "GREEK WHITE", nameAr: "جريك وايت", images: ["/src/assets/GREEK WHITE/GREEK WHITE.webp", "/src/assets/GREEK WHITE/GREEK WHITE1.webp", "/src/assets/GREEK WHITE/GREEK WHITE2.webp", "/src/assets/GREEK WHITE/GREEK WHITE3.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "013", nameEn: "Laurent White", nameAr: "لوران وايت", images: ["/src/assets/Laurent White/Laurent White.webp", "/src/assets/Laurent White/Laurent White1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "014", nameEn: "MARMO BRUNO PERLA", nameAr: "مارمو برونو بيرلا", images: ["/src/assets/MARMO BRUNO PERLA/MARMO BRUNO PERLA.webp", "/src/assets/MARMO BRUNO PERLA/MARMO BRUNO PERLA1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "015", nameEn: "Patagonia", nameAr: "باتاغونيا", images: ["/src/assets/Patagonia/Patagonia.webp", "/src/assets/Patagonia/Patagonia1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "016", nameEn: "port Laurent", nameAr: "بورت لوران", images: ["/src/assets/port Laurent/port Laurent.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "017", nameEn: "Shakespeare Black", nameAr: "شكسبير بلاك", images: ["/src/assets/Shakespeare Black/Shakespeare Black.webp", "/src/assets/Shakespeare Black/Shakespeare Black1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "018", nameEn: "Statuario Gold", nameAr: "ستاتيواريو جولد", images: ["/src/assets/Statuario Gold/Statuario Gold.webp", "/src/assets/Statuario Gold/Statuario Gold2.webp", "/src/assets/Statuario Gold/Statuario Goldd1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "019", nameEn: "Statuario White", nameAr: "ستاتيواريو وايت", images: ["/src/assets/Statuario White/Statuario White.webp", "/src/assets/Statuario White/Statuario Whitee.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "020", nameEn: "TAJ MAHAL", nameAr: "تاج محل", images: ["/src/assets/TAJ MAHAL/TAJ MAHAL.webp", "/src/assets/TAJ MAHAL/TAJ MAHAL1.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "021", nameEn: "TRAVERTINO ROMANO", nameAr: "ترافنتينو رومانو", images: ["/src/assets/TRAVERTINO ROMANO/TRAVERTINO ROMANO.webp", "/src/assets/TRAVERTINO ROMANO/TRAVERTINO ROMANO1.webp", "/src/assets/TRAVERTINO ROMANO/TRAVERTINO ROMANO2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
+  { id: "022", nameEn: "Wooden", nameAr: "خشبي وودن", images: ["/src/assets/Wooden/Wooden.webp", "/src/assets/Wooden/Wooden1.webp", "/src/assets/Wooden/Wooden2.webp", "/src/assets/Wooden/Wooden3.webp", "/src/assets/Wooden/Wooden4.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" }
 ];
 
 export function ProductDetail({ variant, hero }: { variant: Variant; hero: string }) {
   const { t, lang } = useI18n();
-  const [activeTag, setActiveTag] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>(" ");
   const [activeProductIndex, setActiveProductIndex] = useState<number | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
   const titleKey = variant === "italian" ? "products.italian" : "products.chinese";
 
-  // Filter products based on variant, subcategory tag, and search query
+  // Filter products based on variant
   const filteredProducts = useMemo(() => {
-    return productsData.filter((p) => {
-      // 1. Match current variant
-      if (p.type !== variant) return false;
-
-      // 2. Match subcategory tag
-      if (activeTag !== "all" && p.tag !== activeTag) return false;
-
-      // 3. Match search query
-      const query = searchQuery.trim().toLowerCase();
-      if (query !== "") {
-        const matchesName = lang === "ar"
-          ? p.nameAr.toLowerCase().includes(query)
-          : p.nameEn.toLowerCase().includes(query);
-        const matchesCode = `ky-${p.id}`.includes(query) || p.id.includes(query);
-        return matchesName || matchesCode;
-      }
-
-      return true;
-    });
-  }, [variant, activeTag, searchQuery, lang]);
+    return productsData.filter((p) => p.type === variant);
+  }, [variant]);
 
   const activeProduct = activeProductIndex !== null ? filteredProducts[activeProductIndex] : null;
 
@@ -129,12 +62,14 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
     e?.stopPropagation();
     if (activeProductIndex === null) return;
     setActiveProductIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : filteredProducts.length - 1));
+    setActiveImageIndex(0);
   };
 
   const handleNextProduct = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (activeProductIndex === null) return;
     setActiveProductIndex((prev) => (prev !== null && prev < filteredProducts.length - 1 ? prev + 1 : 0));
+    setActiveImageIndex(0);
   };
 
   // Handle keyboard events inside the lightbox
@@ -161,27 +96,13 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeProductIndex, filteredProducts, lang]);
 
-  // Available tags depending on variant
-  const availableTags = useMemo(() => {
-    if (variant === "italian") {
-      return [
-        { id: "all", labelAr: "الكل", labelEn: "All" },
-        { id: "slab", labelAr: "ألواح البورسلان", labelEn: "Slabs & Tiles" },
-        { id: "vanity", labelAr: "المغاسل الفاخرة", labelEn: "Luxury Vanities" },
-      ];
-    } else {
-      return [
-        { id: "all", labelAr: "الكل", labelEn: "All" },
-        { id: "countertop", labelAr: "أسطح المطابخ", labelEn: "Kitchen Countertops" },
-      ];
-    }
-  }, [variant]);
+
 
   return (
     <section className="bg-white min-h-[50vh] relative">
       {/* Hero banner */}
-      <div className="relative h-[300px] md:h-[380px] overflow-hidden">
-        <img src={hero} alt={t(titleKey)} className="absolute inset-0 w-full h-full object-cover" />
+      <div className="relative h-[300px] md:h-[380px] overflow-hidden bg-ink">
+        {hero && <img src={hero} alt={t(titleKey)} className="absolute inset-0 w-full h-full object-cover" />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/35" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 max-w-3xl mx-auto">
           <h1 className="text-white text-3xl md:text-5xl font-black mb-3 drop-shadow-lg">{t(titleKey)}</h1>
@@ -191,50 +112,7 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
 
       {/* Main Catalog Section */}
       <div className="py-12 md:py-16 px-4 md:px-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-6 border-b border-border/60">
-          {/* Subcategory Pills */}
-          <div className="flex flex-wrap gap-2 order-2 md:order-1">
-            {availableTags.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setActiveTag(tab.id);
-                  setActiveProductIndex(null);
-                }}
-                className={`px-5 py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
-                  activeTag === tab.id
-                    ? "bg-teal text-white shadow-md shadow-teal/20 scale-105"
-                    : "bg-muted text-ink/75 hover:bg-teal/10 hover:text-teal"
-                }`}
-              >
-                {lang === "ar" ? tab.labelAr : tab.labelEn}
-              </button>
-            ))}
-          </div>
 
-          {/* Search Input */}
-          <div className="relative w-full md:w-64 order-1 md:order-2">
-            <input
-              type="text"
-              placeholder={lang === "ar" ? "ابحث عن منتج..." : "Search products..."}
-              value={searchQuery === " " ? "" : searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setActiveProductIndex(null);
-              }}
-              className="w-full pl-10 pr-4 py-2 text-xs md:text-sm rounded-full border border-border bg-white text-ink focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
-              dir="auto"
-            />
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          </div>
-        </div>
-
-        {/* Counter */}
-        <div className="text-start mb-6 text-xs md:text-sm text-muted-foreground">
-          {lang === "ar"
-            ? `تم العثور على ${filteredProducts.length} منتج`
-            : `Found ${filteredProducts.length} products`}
-        </div>
 
         {/* Grid View */}
         {filteredProducts.length > 0 ? (
@@ -242,12 +120,15 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
             {filteredProducts.map((p, index) => (
               <div
                 key={p.id}
-                onClick={() => setActiveProductIndex(index)}
+                onClick={() => {
+                  setActiveProductIndex(index);
+                  setActiveImageIndex(0);
+                }}
                 className="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted shadow-sm hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-border/30 hover:border-teal/50"
               >
                 {/* Image */}
                 <img
-                  src={p.img}
+                  src={imagesGlob[p.images[0]] || p.images[0]}
                   alt={lang === "ar" ? p.nameAr : p.nameEn}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -315,70 +196,126 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
 
           {/* Card Modal */}
           <div
-            className="w-full max-w-4xl max-h-[90vh] grid md:grid-cols-2 bg-ink rounded-3xl overflow-hidden shadow-2xl p-4 md:p-6 border border-white/10 mx-auto"
+            className="w-full max-w-5xl md:h-[75vh] max-h-[700px] flex flex-col bg-gradient-to-br from-[#232529] to-[#0f1012] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 mx-auto relative backdrop-blur-2xl"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
-            {/* Left Image Column */}
-            <div className="relative flex items-center justify-center bg-black/40 rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-[450px]">
-              <img
-                src={activeProduct.img}
-                alt={lang === "ar" ? activeProduct.nameAr : activeProduct.nameEn}
-                className="w-full h-full object-contain"
-              />
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 p-4 md:px-8 md:pt-8 md:pb-5 border-b border-white/10 bg-white/5 shrink-0">
+               <div className="flex flex-col gap-2 w-full">
+                 <div className="flex items-center justify-between w-full">
+                   <div className="flex flex-col text-start w-full">
+                     <span className="text-xl md:text-3xl font-black uppercase tracking-wider flex items-center gap-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent drop-shadow-sm">
+                       {activeProduct.type === "italian" ? "🇮🇹" : "🇨🇳"} {lang === "ar" ? activeProduct.nameAr : activeProduct.nameEn}
+                     </span>
+                     <div className="flex items-center gap-3 mt-2">
+                       <span className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-widest">
+                         KY-{activeProduct.id}
+                       </span>
+                       <span className="text-teal/90 text-xs md:text-sm font-bold font-mono tracking-widest bg-teal/10 px-3 py-0.5 rounded-full border border-teal/20" dir="ltr">
+                         {activeProduct.size}
+                       </span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
             </div>
 
-            {/* Right Information Column */}
-            <div className="flex flex-col justify-between text-start text-white p-3 md:p-6 space-y-6">
-              <div className="space-y-4">
-                <span className="inline-block text-xs font-semibold bg-teal text-white px-3 py-1 rounded-full">
-                  {activeProduct.tag === "vanity" ? (lang === "ar" ? "مغسلة فاخرة" : "Premium Vanity") :
-                   activeProduct.tag === "countertop" ? (lang === "ar" ? "سطح مطبخ بورسلان" : "Porcelain Countertop") :
-                   (lang === "ar" ? "لوح بورسلان" : "Porcelain Slab")}
-                </span>
-
-                <div className="text-xs font-mono text-white/50">
-                  {lang === "ar" ? "كود المنتج" : "Product Code"}: KY-{activeProduct.id}
+            {/* Main Content Area */}
+            <div className="flex flex-col md:flex-row flex-1 p-4 md:px-6 md:py-4 gap-4 md:gap-6 overflow-hidden">
+              {/* Features (Left side) */}
+              <div className="flex md:flex-col gap-3 md:gap-6 md:w-32 justify-center md:justify-start overflow-x-auto md:overflow-y-auto shrink-0 custom-scrollbar pb-2 md:pb-0">
+                <div className="flex flex-col items-center text-center gap-1.5 min-w-[70px]">
+                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center text-white/90 hover:scale-110 transition-transform cursor-default">
+                    <ShieldCheck className="w-4 h-4 drop-shadow-md" />
+                  </div>
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase max-w-[90px] leading-tight font-medium tracking-wide">{lang === "ar" ? "مقاوم للخدش" : "Scratch Resistant"}</span>
                 </div>
-
-                <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-snug">
-                  {lang === "ar" ? activeProduct.nameAr : activeProduct.nameEn}
-                </h2>
-
-                <div className="border-t border-white/10 pt-4 grid grid-cols-2 gap-4 text-xs md:text-sm">
-                  <div>
-                    <span className="block text-white/50 mb-0.5">{lang === "ar" ? "نوع التشطيب" : "Finish Type"}</span>
-                    <span className="font-semibold text-white/90">{lang === "ar" ? activeProduct.finishAr : activeProduct.finishEn}</span>
+                <div className="flex flex-col items-center text-center gap-1.5 min-w-[70px]">
+                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center text-white/90 hover:scale-110 transition-transform cursor-default">
+                    <Flame className="w-4 h-4 drop-shadow-md" />
                   </div>
-                  <div>
-                    <span className="block text-white/50 mb-0.5">{lang === "ar" ? "المقاس المتوفر" : "Available Size"}</span>
-                    <span className="font-semibold text-white/90">{activeProduct.size}</span>
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase max-w-[90px] leading-tight font-medium tracking-wide">{lang === "ar" ? "مقاوم للحرارة" : "High Temp. Resistant"}</span>
+                </div>
+                <div className="flex flex-col items-center text-center gap-1.5 min-w-[70px]">
+                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center text-white/90 hover:scale-110 transition-transform cursor-default">
+                    <Droplets className="w-4 h-4 drop-shadow-md" />
                   </div>
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase max-w-[90px] leading-tight font-medium tracking-wide">{lang === "ar" ? "مقاوم للماء" : "Low Water Absorption"}</span>
+                </div>
+                <div className="flex flex-col items-center text-center gap-1.5 min-w-[70px]">
+                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center text-white/90 hover:scale-110 transition-transform cursor-default">
+                    <FlaskConical className="w-4 h-4 drop-shadow-md" />
+                  </div>
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase max-w-[90px] leading-tight font-medium tracking-wide">{lang === "ar" ? "مقاوم للمواد الكيميائية" : "Chemical Resistant"}</span>
                 </div>
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-white/10">
-                <p className="text-xs text-white/70 leading-relaxed">
-                  {lang === "ar"
-                    ? "جميع منتجاتنا مصنعة بأعلى درجات الجودة، ومقاومة للمياه والخدش والحرارة. يمكنك النقر أدناه للتواصل والاستفسار الفوري حول هذا الموديل."
-                    : "All our products are manufactured to the highest standards, ensuring water, scratch, and temperature resistance. Click below to inquire immediately."
-                  }
-                </p>
-
-                {/* WhatsApp Link */}
-                <a
-                  href={`https://wa.me/966546111600?text=${encodeURIComponent(
-                    lang === "ar"
-                      ? `مرحباً شركة كيان المستقبل، أود الاستفسار عن منتج: ${activeProduct.nameAr} (كود المنتج: KY-${activeProduct.id})`
-                      : `Hello Future Kayan, I would like to inquire about the product: ${activeProduct.nameEn} (Product Code: KY-${activeProduct.id})`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 px-5 rounded-xl font-bold transition-all hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#25d366]/20 text-center w-full cursor-pointer text-xs md:text-sm"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white text-white" />
-                  <span>{lang === "ar" ? "طلب استفسار عبر الواتساب" : "Inquire via WhatsApp"}</span>
-                </a>
+              {/* Product Main Image */}
+              <div className="flex-1 flex flex-col items-center justify-center relative min-h-[250px] md:min-h-0 bg-gradient-to-tr from-white/5 to-transparent rounded-2xl overflow-hidden border border-white/10 shadow-inner">
+                <img
+                  src={imagesGlob[activeProduct.images[activeImageIndex]] || activeProduct.images[activeImageIndex]}
+                  alt={lang === "ar" ? activeProduct.nameAr : activeProduct.nameEn}
+                  className="absolute inset-0 w-full h-full object-contain p-2 transition-all duration-300"
+                />
+                
+                {activeProduct.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : activeProduct.images.length - 1)); }}
+                      className="absolute start-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 text-white hover:bg-teal transition-colors border border-white/10"
+                    >
+                      <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setActiveImageIndex((prev) => (prev < activeProduct.images.length - 1 ? prev + 1 : 0)); }}
+                      className="absolute end-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 text-white hover:bg-teal transition-colors border border-white/10"
+                    >
+                      <ChevronRight className="w-5 h-5 rtl:rotate-180" />
+                    </button>
+                  </>
+                )}
               </div>
+            </div>
+
+            {/* Footer / Interaction Area */}
+            <div className="flex flex-col gap-4 p-5 md:px-8 md:pb-6 bg-black/20 border-t border-white/5">
+               {/* Thumbnail Strip */}
+               {activeProduct.images.length > 1 && (
+                 <div className="flex justify-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                   {activeProduct.images.map((img, idx) => (
+                     <button
+                       key={img}
+                       onClick={(e) => { e.stopPropagation(); setActiveImageIndex(idx); }}
+                       className={`relative shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all ${activeImageIndex === idx ? 'border-teal scale-100 opacity-100 shadow-lg shadow-teal/20' : 'border-white/10 scale-95 opacity-50 hover:opacity-100'}`}
+                     >
+                       <img src={imagesGlob[img] || img} className="w-full h-full object-cover" />
+                     </button>
+                   ))}
+                 </div>
+               )}
+
+               {/* Action Area & Certifications */}
+               <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-2">
+                 <div className="flex items-center gap-4 text-white/40 font-bold text-lg md:text-xl tracking-widest uppercase">
+                   <span>NSF</span>
+                   <span>ISO</span>
+                   <span>CE</span>
+                 </div>
+                 
+                 <a
+                   href={`https://wa.me/966546111600?text=${encodeURIComponent(
+                     lang === "ar"
+                       ? `مرحباً شركة كيان المستقبل، أود الاستفسار عن منتج: ${activeProduct.nameAr} (كود المنتج: KY-${activeProduct.id})`
+                       : `Hello Future Kayan, I would like to inquire about the product: ${activeProduct.nameEn} (Product Code: KY-${activeProduct.id})`
+                   )}`}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#20ba5a] hover:to-[#0f7a6d] text-white py-3 px-8 rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.4)] text-sm md:text-base w-full md:w-auto cursor-pointer border border-white/20"
+                 >
+                   <MessageSquare className="w-5 h-5 fill-white text-white drop-shadow-md" />
+                   <span className="drop-shadow-sm">{lang === "ar" ? "طلب استفسار عبر الواتساب" : "Inquire via WhatsApp"}</span>
+                 </a>
+               </div>
             </div>
           </div>
         </div>

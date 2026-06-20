@@ -1,5 +1,5 @@
-import aboutImg from "@/assets/images/about.jpg";
-import slabsImg from "@/assets/images/about2.jpg";
+import aboutImg from "@/assets/images/about.webp";
+import slabsImg from "@/assets/images/about2.webp";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function About() {

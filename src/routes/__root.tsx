@@ -11,7 +11,7 @@ import { I18nProvider } from "@/i18n/I18nProvider";
 
 
 
-import favIcon from "@/assets/images/18.png";
+import favIcon from "@/assets/images/18.webp";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
