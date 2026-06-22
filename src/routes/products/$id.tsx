@@ -143,7 +143,7 @@ function ProductSinglePage() {
 
               {/* Action */}
               <a
-                href={`https://wa.me/966546111600?text=${encodeURIComponent(
+                href={`https://wa.me/966546107600?text=${encodeURIComponent(
                   lang === "ar"
                     ? `مرحباً شركة كيان المستقبل، أود الاستفسار عن منتج: ${product.nameAr} (كود المنتج: KY-${product.id})`
                     : `Hello Future Kayan, I would like to inquire about the product: ${product.nameEn} (Product Code: KY-${product.id})`

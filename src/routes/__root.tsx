@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { I18nProvider } from "@/i18n/I18nProvider";
+import { Settings } from "lucide-react";
 
 
 
@@ -122,6 +123,23 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  const isMaintenanceMode = true; // Set to false to disable maintenance mode
+
+  if (isMaintenanceMode) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 text-center" dir="rtl">
+        <Settings className="w-24 h-24 text-teal animate-[spin_3s_linear_infinite] mb-8 opacity-90" />
+        <h1 className="text-4xl md:text-6xl font-black text-foreground mb-6">
+          الموقع تحت الصيانة
+        </h1>
+        <p className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+          نقوم حالياً ببعض التحديثات الهامة لتحسين تجربتكم. سنعود للعمل في أقرب وقت ممكن. شكراً لتفهمكم!
+        </p>
+        <WhatsAppButton />
+      </div>
+    );
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
@@ -136,7 +154,7 @@ function RootComponent() {
 function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/966546111600"
+      href="https://wa.me/966546107600"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:bg-[#22c35e] transition-all duration-300 hover:scale-110 group"

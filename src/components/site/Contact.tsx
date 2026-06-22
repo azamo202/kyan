@@ -32,7 +32,7 @@ export function Contact() {
               <h3 className="text-ink text-lg font-bold mb-5 text-start">{t("contact.info")}</h3>
               <div className="space-y-3">
                 <InfoRow icon={Mail} label={t("contact.email")} value="info@kayan.com" />
-                <InfoRow icon={Phone} label={t("contact.phone")} value="+966 46107600" />
+                <InfoRow icon={Phone} label={t("contact.phone")} value="0546107600" />
                 <InfoRow icon={MapPin} label={t("contact.location")} value={t("contact.locationVal")} />
               </div>
             </div>
