@@ -136,7 +136,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
-  const isMaintenanceMode = true; // Set to false to disable maintenance mode
+  const isMaintenanceMode = false; // Set to false to disable maintenance mode
 
   if (isMaintenanceMode) {
     return (
