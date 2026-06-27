@@ -4,8 +4,8 @@ import { useI18n } from "@/i18n/I18nProvider";
 const modules = import.meta.glob("../../assets/Protofolio/*", { eager: true });
 const allImagesList = Object.values(modules).map((m: any) => m.default) as string[];
 
-type Cat = "all" | "acrylic" | "wood" | "porcelain" | "granite" | "hpl";
-const categories: Cat[] = ["acrylic", "wood", "porcelain", "granite", "hpl"];
+type Cat = "all" | "surfaces" | "kitchens" | "counters" | "washbasins";
+const categories: Cat[] = ["surfaces", "kitchens", "counters", "washbasins"];
 
 const allImages: { src: string; cat: Cat }[] = allImagesList.map((src, index) => ({
   src,
@@ -18,11 +18,10 @@ export function LatestWorks({ tinted = false }: { tinted?: boolean }) {
   const [activeProject, setActiveProject] = useState(0);
   
   const cats: { id: Cat; label: string }[] = [
-    { id: "hpl", label: t("works.hpl") },
-    { id: "granite", label: t("works.granite") },
-    { id: "porcelain", label: t("works.porcelain") },
-    { id: "wood", label: t("works.wood") },
-    { id: "acrylic", label: t("works.acrylic") },
+    { id: "washbasins", label: t("works.washbasins") },
+    { id: "counters", label: t("works.counters") },
+    { id: "kitchens", label: t("works.kitchens") },
+    { id: "surfaces", label: t("works.surfaces") },
     { id: "all", label: t("works.all") },
   ];
   const images = active === "all" ? allImages : allImages.filter(i => i.cat === active);

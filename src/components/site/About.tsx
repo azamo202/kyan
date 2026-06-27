@@ -12,15 +12,15 @@ export function About() {
             <img src={aboutImg} alt="showroom" loading="lazy" width={1200} height={900} className="w-full h-[280px] md:h-[360px] object-cover" />
           </div>
           <div className="text-start space-y-5">
-            <h2 className="section-label">{t("about.who")}</h2>
-            <p className="text-ink/80 leading-loose text-sm md:text-[15px] tracking-wide">{t("about.whoText")}</p>
+            <h2 className="section-label !text-xl md:!text-3xl mb-4">{t("about.who")}</h2>
+            <p className="text-ink/80 leading-relaxed text-base md:text-lg tracking-wide">{t("about.whoText")}</p>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div className="text-start space-y-5 order-2 md:order-1">
-            <h2 className="section-label">{t("about.mission")}</h2>
-            <p className="text-ink/80 leading-loose text-sm md:text-[15px] tracking-wide">{t("about.missionText")}</p>
+            <h2 className="section-label !text-xl md:!text-3xl mb-4">{t("about.mission")}</h2>
+            <p className="text-ink/80 leading-relaxed text-base md:text-lg tracking-wide">{t("about.missionText")}</p>
           </div>
           <div className="rounded-3xl overflow-hidden shadow-xl order-1 md:order-2">
             <img src={slabsImg} alt="porcelain slabs" loading="lazy" width={1200} height={900} className="w-full h-[280px] md:h-[360px] object-cover" />

@@ -3,8 +3,9 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { productsData, imagesGlob } from "@/lib/productsData";
+
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, ArrowLeft, ArrowRight } from "lucide-react";
+import { MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, ArrowLeft, ArrowRight, ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/products/$id")({
   loader: ({ params }) => {
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/products/$id")({
 function ProductSinglePage() {
   const { product } = Route.useLoaderData();
   const { lang } = useI18n();
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [zoomedImageIndex, setZoomedImageIndex] = useState<number | null>(null);
 
   return (
     <main className="min-h-screen bg-background text-foreground animate-fade-in flex flex-col">
@@ -50,45 +51,22 @@ function ProductSinglePage() {
             
             {/* Image Gallery */}
             <div className="flex flex-col gap-4">
-              <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square bg-muted rounded-3xl overflow-hidden border border-border shadow-sm flex items-center justify-center p-4">
+              <div 
+                className="relative aspect-square md:aspect-[4/3] lg:aspect-square bg-muted rounded-3xl overflow-hidden border border-border shadow-sm flex items-center justify-center p-4 group cursor-pointer"
+                onClick={() => setZoomedImageIndex(0)}
+              >
                 <img
-                  src={imagesGlob[product.images[activeImageIndex]] || product.images[activeImageIndex]}
+                  src={imagesGlob[product.images[0]] || product.images[0]}
                   alt={lang === "ar" ? product.nameAr : product.nameEn}
                   className="w-full h-full object-contain transition-all duration-500"
                 />
-                
-                {product.images.length > 1 && (
-                  <>
-                    <button
-                      onClick={() => setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : product.images.length - 1))}
-                      className="absolute start-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all z-10"
-                    >
-                      <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
-                    </button>
-                    <button
-                      onClick={() => setActiveImageIndex((prev) => (prev < product.images.length - 1 ? prev + 1 : 0))}
-                      className="absolute end-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all z-10"
-                    >
-                      <ChevronRight className="w-5 h-5 rtl:rotate-180" />
-                    </button>
-                  </>
-                )}
+                <button 
+                  className="absolute bottom-4 end-4 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                  aria-label="Zoom image"
+                >
+                  <ZoomIn className="w-5 h-5" />
+                </button>
               </div>
-
-              {/* Thumbnails */}
-              {product.images.length > 1 && (
-                <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
-                  {product.images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-xl overflow-hidden border-2 transition-all ${activeImageIndex === idx ? 'border-teal ring-2 ring-teal/20 scale-100' : 'border-transparent opacity-60 hover:opacity-100 hover:scale-95 bg-muted'}`}
-                    >
-                      <img src={imagesGlob[img] || img} alt="" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Product Info */}
@@ -109,14 +87,10 @@ function ProductSinglePage() {
                 {lang === "ar" ? product.nameAr : product.nameEn}
               </h1>
 
-              <div className="grid grid-cols-2 gap-4 py-8 border-y border-border mb-8">
+              <div className="py-6 border-y border-border mb-8">
                 <div className="flex flex-col gap-1">
                   <span className="text-sm text-muted-foreground">{lang === "ar" ? "المقاس" : "Size"}</span>
-                  <span className="font-mono text-lg font-bold" dir="ltr">{product.size}</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm text-muted-foreground">{lang === "ar" ? "التشطيب" : "Finish"}</span>
-                  <span className="text-lg font-bold">{lang === "ar" ? product.finishAr : product.finishEn}</span>
+                  <span className="font-mono text-lg font-bold text-teal" dir="ltr">{product.size}</span>
                 </div>
               </div>
 
@@ -158,9 +132,81 @@ function ProductSinglePage() {
 
             </div>
           </div>
+
+          {/* Room Scenes / Other Images */}
+          {product.images.length > 1 && (
+            <div className="mt-20 md:mt-32 border-t border-border/50 pt-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">{lang === "ar" ? "تطبيقات المنتج" : "Product Applications"}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {product.images.slice(1).map((img, idx) => {
+                  const imgSrc = imagesGlob[img] || img;
+                  return (
+                  <div 
+                    key={idx} 
+                    className="relative rounded-3xl overflow-hidden bg-muted group cursor-pointer"
+                    onClick={() => setZoomedImageIndex(idx + 1)}
+                  >
+                    <img src={imgSrc} alt="" className="w-full h-full object-cover aspect-[4/3] md:aspect-[3/2] transition-transform duration-700 group-hover:scale-105" />
+                    <button 
+                      className="absolute bottom-4 end-4 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                      aria-label="Zoom image"
+                    >
+                      <ZoomIn className="w-5 h-5" />
+                    </button>
+                  </div>
+                )})}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
+
+      {/* Lightbox Modal */}
+      {zoomedImageIndex !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setZoomedImageIndex(null)}>
+          <button 
+            onClick={() => setZoomedImageIndex(null)}
+            className="absolute top-6 end-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+            aria-label="Close"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {product.images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setZoomedImageIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : product.images.length - 1));
+                }}
+                className="absolute start-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+              >
+                <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setZoomedImageIndex((prev) => (prev !== null && prev < product.images.length - 1 ? prev + 1 : 0));
+                }}
+                className="absolute end-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+              >
+                <ChevronRight className="w-6 h-6 rtl:rotate-180" />
+              </button>
+            </>
+          )}
+
+          <img 
+            key={zoomedImageIndex} // Add key to force re-render/animation on change
+            src={imagesGlob[product.images[zoomedImageIndex]] || product.images[zoomedImageIndex]} 
+            alt="Zoomed product" 
+            className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()} 
+          />
+        </div>
+      )}
     </main>
   );
 }

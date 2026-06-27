@@ -29,42 +29,39 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
       <div className="py-12 md:py-16 px-4 md:px-8 max-w-6xl mx-auto">
         {/* Grid View */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {filteredProducts.map((p) => (
               <Link
                 key={p.id}
                 to="/products/$id"
                 params={{ id: p.id }}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted shadow-sm hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-border/30 hover:border-teal/50 block"
+                className="group flex flex-col gap-4 cursor-pointer"
               >
                 {/* Image */}
-                <img
-                  src={imagesGlob[p.images[0]] || p.images[0]}
-                  alt={lang === "ar" ? p.nameAr : p.nameEn}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                <div className="relative aspect-square overflow-hidden bg-muted border border-border/50 shadow-sm transition-shadow duration-300 group-hover:shadow-md">
+                  <img
+                    src={imagesGlob[p.images[0]] || p.images[0]}
+                    alt={lang === "ar" ? p.nameAr : p.nameEn}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                {/* Hover zoom overlay */}
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="bg-white/10 backdrop-blur-md text-white p-2.5 rounded-full scale-75 group-hover:scale-100 transition-all duration-300">
-                    <ZoomIn className="w-5 h-5" />
+                  {/* Hover zoom overlay */}
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                    <div className="bg-white/90 backdrop-blur-sm text-foreground p-3 rounded-full scale-75 group-hover:scale-100 transition-all duration-300 shadow-xl">
+                      <ZoomIn className="w-5 h-5" />
+                    </div>
                   </div>
                 </div>
 
                 {/* Bottom details block */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 text-start">
-                  <span className="inline-block text-[9px] md:text-[10px] font-semibold bg-teal text-white px-2 py-0.5 rounded-full mb-1.5">
-                    {p.tag === "vanity" ? (lang === "ar" ? "مغسلة" : "Vanity") :
-                     p.tag === "countertop" ? (lang === "ar" ? "سطح مطبخ" : "Countertop") :
-                     (lang === "ar" ? "لوح" : "Slab")}
-                  </span>
-                  <div className="text-[9px] md:text-[10px] text-white/60 font-mono">
-                    KY-{p.id}
-                  </div>
-                  <h3 className="text-white text-xs md:text-sm font-bold line-clamp-1 group-hover:text-teal transition-colors">
+                <div className="flex flex-col gap-1.5 px-1">
+                  <h3 className="text-foreground text-base md:text-lg font-medium truncate transition-colors group-hover:text-teal">
                     {lang === "ar" ? p.nameAr : p.nameEn}
                   </h3>
+                  <div className="text-xs md:text-sm text-muted-foreground font-light">
+                    <span dir="ltr" className="font-mono tracking-wider">{p.size}</span>
+                  </div>
                 </div>
               </Link>
             ))}
