@@ -4,8 +4,8 @@ import { useI18n } from "@/i18n/I18nProvider";
 const modules = import.meta.glob("../../assets/Protofolio/*", { eager: true });
 const allImagesList = Object.values(modules).map((m: any) => m.default) as string[];
 
-type Cat = "all" | "surfaces" | "kitchens" | "counters" | "washbasins";
-const categories: Cat[] = ["surfaces", "kitchens", "counters", "washbasins"];
+type Cat = "all" | "surfaces" | "counters" | "washbasins";
+const categories: Cat[] = ["surfaces", "counters", "washbasins"];
 
 const allImages: { src: string; cat: Cat }[] = allImagesList.map((src, index) => ({
   src,
@@ -20,7 +20,6 @@ export function LatestWorks({ tinted = false }: { tinted?: boolean }) {
   const cats: { id: Cat; label: string }[] = [
     { id: "washbasins", label: t("works.washbasins") },
     { id: "counters", label: t("works.counters") },
-    { id: "kitchens", label: t("works.kitchens") },
     { id: "surfaces", label: t("works.surfaces") },
     { id: "all", label: t("works.all") },
   ];

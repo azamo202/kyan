@@ -40,7 +40,7 @@ const dict: Dict = {
 
   // products listing
   "products.label": { ar: "منتجاتنا", en: "Our Products" },
-  "products.title": { ar: "تصنيفاتنا الرئيسية", en: "Main Categories" },
+  "products.title": { ar: "منتجاتنا", en: "Our Products" },
   "products.subtitle": {
     ar: "اكتشف تشكيلاتنا المختارة من أجود أنواع البورسلان بأعلى معايير الجودة والتصميم",
     en: "Discover our curated selection of finest porcelain with the highest standards of quality and design.",
@@ -67,8 +67,7 @@ const dict: Dict = {
   "works.label": { ar: "أعمالنا", en: "Our Work" },
   "works.title": { ar: "شاهد أحدث أعمالنا", en: "See Our Latest Work" },
   "works.all": { ar: "الكل", en: "All" },
-  "works.surfaces": { ar: "اسطح", en: "Surfaces" },
-  "works.kitchens": { ar: "مطابخ", en: "Kitchens" },
+  "works.surfaces": { ar: "اسطح مطابخ", en: "Kitchen Surfaces" },
   "works.counters": { ar: "كاونترات", en: "Counters" },
   "works.washbasins": { ar: "مغاسل", en: "Washbasins" },
   "works.before": { ar: "قبل التنفيذ", en: "Before" },

@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import chinese from "@/assets/images/porcelain-chinese.webp";
+import chinese from "@/assets/images/porcelain-chinese.png";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function Products() {
@@ -12,7 +12,6 @@ export function Products() {
     <section id="products" className="py-20 md:py-28 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-14">
-          <span className="section-label">{t("products.label")}</span>
           <h2 className="text-3xl md:text-5xl font-black text-ink">{t("products.title")}</h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">{t("products.subtitle")}</p>
         </div>
