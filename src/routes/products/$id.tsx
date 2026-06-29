@@ -83,7 +83,7 @@ function ProductSinglePage() {
                  </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-black mb-6 tracking-tight">
                 {lang === "ar" ? product.nameAr : product.nameEn}
               </h1>
 

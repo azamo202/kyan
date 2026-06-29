@@ -12,7 +12,7 @@ export interface Product {
   size: string;
 }
 
-export const imagesGlob = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
+export const imagesGlob = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 export const productsData: Product[] = [
   { id: "001", nameEn: "Alice Gold", nameAr: "أليس جولد", images: ["/src/assets/Alice Gold/Alice Gold Polshied.webp", "/src/assets/Alice Gold/Alice Gold Polshied1.webp", "/src/assets/Alice Gold/Alice Gold Polshied2.webp"], tag: "slab", type: "chinese", finishAr: "مصقول لامع", finishEn: "Polished", size: "1600 X 3200mm X 12mm" },
