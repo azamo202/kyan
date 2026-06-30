@@ -2,10 +2,10 @@ import { useRef, useState, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
-const surfacesModules = import.meta.glob("../../assets/اسطح/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
-const countersModules = import.meta.glob("../../assets/كونترات/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
-const washbasinsModules = import.meta.glob("../../assets/مغاسل/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
-const beforeAfterModules = import.meta.glob("../../assets/قبل وبعد/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const surfacesModules = import.meta.glob("../../assets/اسطح_compressed/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const countersModules = import.meta.glob("../../assets/كونترات_compressed/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const washbasinsModules = import.meta.glob("../../assets/مغاسل_compressed/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const beforeAfterModules = import.meta.glob("../../assets/قبل وبعد_compressed/*", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
 
 const surfacesImages = Object.values(surfacesModules);
 const countersImages = Object.values(countersModules);

@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { productsData, imagesGlob } from "@/lib/productsData";
 
 import { useState } from "react";
-import { MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, ArrowLeft, ArrowRight, ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/products/$id")({
   loader: ({ params }) => {
@@ -28,7 +28,11 @@ export const Route = createFileRoute("/products/$id")({
 function ProductSinglePage() {
   const { product } = Route.useLoaderData();
   const { lang } = useI18n();
-  const [zoomedImageIndex, setZoomedImageIndex] = useState<number | null>(null);
+  const [zoomedGallery, setZoomedGallery] = useState<{ images: string[], index: number } | null>(null);
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+
+  const sliderImages = product.images;
+  const applicationImages = product.applications || [];
 
   return (
     <main className="min-h-screen bg-background text-foreground animate-fade-in flex flex-col">
@@ -53,19 +57,48 @@ function ProductSinglePage() {
             <div className="flex flex-col gap-4">
               <div 
                 className="relative aspect-square md:aspect-[4/3] lg:aspect-square bg-muted rounded-3xl overflow-hidden border border-border shadow-sm flex items-center justify-center p-4 group cursor-pointer"
-                onClick={() => setZoomedImageIndex(0)}
+                onClick={() => setZoomedGallery({ images: sliderImages, index: mainImageIndex })}
               >
                 <img
-                  src={imagesGlob[product.images[0]] || product.images[0]}
+                  key={mainImageIndex}
+                  src={imagesGlob[sliderImages[mainImageIndex]] || sliderImages[mainImageIndex]}
                   alt={lang === "ar" ? product.nameAr : product.nameEn}
-                  className="w-full h-full object-contain transition-all duration-500"
+                  className="w-full h-full object-contain animate-in fade-in duration-500"
                 />
                 <button 
-                  className="absolute bottom-4 end-4 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                  className="absolute bottom-4 end-4 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white shadow-md hover:scale-110 hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                   aria-label="Zoom image"
                 >
-                  <ZoomIn className="w-5 h-5" />
+                  <Maximize className="w-5 h-5" />
                 </button>
+
+                {/* Slider Controls */}
+                {sliderImages.length > 1 && (
+                  <>
+                    {mainImageIndex > 0 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setMainImageIndex((prev) => Math.max(0, prev - 1));
+                        }}
+                        className="absolute start-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/70 backdrop-blur-sm text-black hover:bg-white shadow-md transition-all opacity-0 group-hover:opacity-100"
+                      >
+                        <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
+                      </button>
+                    )}
+                    {mainImageIndex < sliderImages.length - 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setMainImageIndex((prev) => Math.min(sliderImages.length - 1, prev + 1));
+                        }}
+                        className="absolute end-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/70 backdrop-blur-sm text-black hover:bg-white shadow-md transition-all opacity-0 group-hover:opacity-100"
+                      >
+                        <ChevronRight className="w-5 h-5 rtl:rotate-180" />
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
             </div>
 
@@ -134,26 +167,26 @@ function ProductSinglePage() {
           </div>
 
           {/* Room Scenes / Other Images */}
-          {product.images.length > 1 && (
+          {applicationImages.length > 0 && (
             <div className="mt-20 md:mt-32 border-t border-border/50 pt-16">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">{lang === "ar" ? "تطبيقات المنتج" : "Product Applications"}</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {product.images.slice(1).map((img, idx) => {
+                {applicationImages.map((img, idx) => {
                   const imgSrc = imagesGlob[img] || img;
                   return (
                   <div 
                     key={idx} 
                     className="relative rounded-3xl overflow-hidden bg-muted group cursor-pointer"
-                    onClick={() => setZoomedImageIndex(idx + 1)}
+                    onClick={() => setZoomedGallery({ images: applicationImages, index: idx })}
                   >
                     <img src={imgSrc} alt="" className="w-full h-full object-cover aspect-[4/3] md:aspect-[3/2] transition-transform duration-700 group-hover:scale-105" />
                     <button 
-                      className="absolute bottom-4 end-4 p-3 rounded-full bg-background/80 backdrop-blur shadow-md hover:bg-teal hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                      className="absolute bottom-4 end-4 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white shadow-md hover:scale-110 hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                       aria-label="Zoom image"
                     >
-                      <ZoomIn className="w-5 h-5" />
+                      <Maximize className="w-5 h-5" />
                     </button>
                   </div>
                 )})}
@@ -165,42 +198,46 @@ function ProductSinglePage() {
       <Footer />
 
       {/* Lightbox Modal */}
-      {zoomedImageIndex !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setZoomedImageIndex(null)}>
+      {zoomedGallery !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setZoomedGallery(null)}>
           <button 
-            onClick={() => setZoomedImageIndex(null)}
+            onClick={() => setZoomedGallery(null)}
             className="absolute top-6 end-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
             aria-label="Close"
           >
             <X className="w-6 h-6" />
           </button>
 
-          {product.images.length > 1 && (
+          {zoomedGallery.images.length > 1 && (
             <>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setZoomedImageIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : product.images.length - 1));
-                }}
-                className="absolute start-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
-              >
-                <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setZoomedImageIndex((prev) => (prev !== null && prev < product.images.length - 1 ? prev + 1 : 0));
-                }}
-                className="absolute end-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
-              >
-                <ChevronRight className="w-6 h-6 rtl:rotate-180" />
-              </button>
+              {zoomedGallery.index > 0 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomedGallery((prev) => prev ? { ...prev, index: Math.max(0, prev.index - 1) } : null);
+                  }}
+                  className="absolute start-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+                >
+                  <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
+                </button>
+              )}
+              {zoomedGallery.index < zoomedGallery.images.length - 1 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomedGallery((prev) => prev ? { ...prev, index: Math.min(prev.images.length - 1, prev.index + 1) } : null);
+                  }}
+                  className="absolute end-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+                >
+                  <ChevronRight className="w-6 h-6 rtl:rotate-180" />
+                </button>
+              )}
             </>
           )}
 
           <img 
-            key={zoomedImageIndex} // Add key to force re-render/animation on change
-            src={imagesGlob[product.images[zoomedImageIndex]] || product.images[zoomedImageIndex]} 
+            key={zoomedGallery.index}
+            src={imagesGlob[zoomedGallery.images[zoomedGallery.index]] || zoomedGallery.images[zoomedGallery.index]} 
             alt="Zoomed product" 
             className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()} 

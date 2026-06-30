@@ -31,8 +31,8 @@ export function Navbar() {
   return (
     <header className="absolute top-0 inset-x-0 z-50 px-4 md:px-8 pt-4 md:pt-6">
       <nav className="max-w-7xl mx-auto bg-white/95 backdrop-blur-md rounded-full shadow-lg px-4 md:px-6 py-2.5 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <Logo variant="dark" className="h-11 md:h-12 w-auto" />
+        <Link to="/" className="flex items-center justify-center shrink-0 h-11 md:h-12">
+          <Logo variant="dark" className="h-6 md:h-7 w-auto" />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-8 text-sm font-medium">

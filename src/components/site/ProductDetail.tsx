@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
-import { ZoomIn } from "lucide-react";
+import { Maximize } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Variant, productsData, imagesGlob } from "@/lib/productsData";
 
@@ -48,8 +48,8 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
 
                   {/* Hover zoom overlay */}
                   <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                    <div className="bg-white/90 backdrop-blur-sm text-foreground p-3 rounded-full scale-75 group-hover:scale-100 transition-all duration-300 shadow-xl">
-                      <ZoomIn className="w-5 h-5" />
+                    <div className="bg-black/70 backdrop-blur-sm text-white p-3 rounded-full scale-75 group-hover:scale-100 transition-all duration-300 shadow-xl">
+                      <Maximize className="w-5 h-5" />
                     </div>
                   </div>
                 </div>
