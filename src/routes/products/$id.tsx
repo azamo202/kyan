@@ -170,7 +170,7 @@ function ProductSinglePage() {
           {applicationImages.length > 0 && (
             <div className="mt-20 md:mt-32 border-t border-border/50 pt-16">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">{lang === "ar" ? "تطبيقات المنتج" : "Product Applications"}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">{lang === "ar" ? "أمثلة على استخدامات المنتج" : "Product Application Examples"}</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {applicationImages.map((img, idx) => {
@@ -199,10 +199,14 @@ function ProductSinglePage() {
 
       {/* Lightbox Modal */}
       {zoomedGallery !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setZoomedGallery(null)}>
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-white/90 to-[#eaf6f7]/90 backdrop-blur-xl animate-in fade-in duration-300 p-4 md:p-8" 
+          onClick={() => setZoomedGallery(null)}
+        >
+          {/* Close Button */}
           <button 
             onClick={() => setZoomedGallery(null)}
-            className="absolute top-6 end-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+            className="absolute top-4 end-4 md:top-8 md:end-8 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white text-ink shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:bg-red-50 hover:text-red-500 hover:scale-110 hover:shadow-lg transition-all z-50 border border-black/5"
             aria-label="Close"
           >
             <X className="w-6 h-6" />
@@ -216,9 +220,10 @@ function ProductSinglePage() {
                     e.stopPropagation();
                     setZoomedGallery((prev) => prev ? { ...prev, index: Math.max(0, prev.index - 1) } : null);
                   }}
-                  className="absolute start-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+                  className="absolute start-2 md:start-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-white text-teal shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-teal hover:text-white hover:scale-110 transition-all z-50 border border-black/5"
+                  aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
+                  <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 rtl:rotate-180" />
                 </button>
               )}
               {zoomedGallery.index < zoomedGallery.images.length - 1 && (
@@ -227,21 +232,26 @@ function ProductSinglePage() {
                     e.stopPropagation();
                     setZoomedGallery((prev) => prev ? { ...prev, index: Math.min(prev.images.length - 1, prev.index + 1) } : null);
                   }}
-                  className="absolute end-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition-all z-10"
+                  className="absolute end-2 md:end-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-white text-teal shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-teal hover:text-white hover:scale-110 transition-all z-50 border border-black/5"
+                  aria-label="Next image"
                 >
-                  <ChevronRight className="w-6 h-6 rtl:rotate-180" />
+                  <ChevronRight className="w-6 h-6 md:w-8 md:h-8 rtl:rotate-180" />
                 </button>
               )}
             </>
           )}
 
-          <img 
-            key={zoomedGallery.index}
-            src={imagesGlob[zoomedGallery.images[zoomedGallery.index]] || zoomedGallery.images[zoomedGallery.index]} 
-            alt="Zoomed product" 
-            className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-300"
-            onClick={(e) => e.stopPropagation()} 
-          />
+          <div 
+            className="relative max-w-full max-h-[85vh] md:max-h-[90vh] w-auto flex items-center justify-center cursor-default" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              key={zoomedGallery.index}
+              src={imagesGlob[zoomedGallery.images[zoomedGallery.index]] || zoomedGallery.images[zoomedGallery.index]} 
+              alt="Zoomed product" 
+              className="max-w-full max-h-[85vh] md:max-h-[90vh] object-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-400"
+            />
+          </div>
         </div>
       )}
     </main>

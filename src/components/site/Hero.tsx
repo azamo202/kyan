@@ -83,26 +83,63 @@ export function Hero() {
 }
 
 function FeatureStrip() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const features = [
     { icon: Gem, title: t("hero.f1.t"), desc: t("hero.f1.d") },
     { icon: TripIcon, title: t("hero.f2.t"), desc: t("hero.f2.d") },
     { icon: Shield, title: t("hero.f3.t"), desc: t("hero.f3.d") },
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % features.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [features.length]);
+
   return (
-    <div className="absolute bottom-6 md:bottom-10 inset-x-0 px-2 md:px-4 z-10">
-      <div className="max-w-5xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl md:px-8 py-3 md:py-5 border border-white/5">
-        <div className="flex md:grid md:grid-cols-3 overflow-x-auto gap-2 md:gap-0 divide-x-0 md:divide-x divide-white/10 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+    <div className="absolute bottom-6 md:bottom-10 inset-x-0 px-4 z-10">
+      <div className="max-w-5xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl md:px-8 py-4 border border-white/5 overflow-hidden">
+        
+        {/* Desktop View: Grid */}
+        <div className="hidden md:grid grid-cols-3 divide-x divide-white/10 rtl:divide-x-reverse">
           {features.map((f) => (
-            <div key={f.title} className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-0 min-w-[260px] md:min-w-0 snap-center justify-start">
-              <div className="text-teal/90 shrink-0"><f.icon className="w-8 h-8 md:w-10 md:h-10" /></div>
+            <div key={f.title} className="flex items-center gap-4 px-6 justify-center">
+              <div className="text-teal/90 shrink-0"><f.icon className="w-10 h-10" /></div>
               <div className="text-start">
-                <div className="text-white/90 font-medium text-sm md:text-base mb-0.5">{f.title}</div>
-                <div className="text-white/60 text-xs md:text-sm leading-snug">{f.desc}</div>
+                <div className="text-white/90 font-bold text-base mb-1">{f.title}</div>
+                <div className="text-white/60 text-sm leading-snug">{f.desc}</div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Mobile View: Auto Slider */}
+        <div className="md:hidden relative">
+          <div 
+            className="flex transition-transform duration-500 ease-in-out" 
+            style={{ transform: `translateX(${lang === "ar" ? activeIndex * 100 : -(activeIndex * 100)}%)` }}
+          >
+            {features.map((f) => (
+              <div key={f.title} className="w-full shrink-0 flex items-center justify-center gap-4 px-2">
+                <div className="text-teal/90 shrink-0"><f.icon className="w-9 h-9" /></div>
+                <div className="text-start">
+                  <div className="text-white/90 font-bold text-sm mb-0.5">{f.title}</div>
+                  <div className="text-white/60 text-xs leading-snug">{f.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Indicators */}
+          <div className="flex gap-1.5 justify-center mt-3">
+             {features.map((_, i) => (
+               <div key={i} className={`h-1 rounded-full transition-all duration-300 ${i === activeIndex ? "w-5 bg-teal" : "w-1.5 bg-white/30"}`} />
+             ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

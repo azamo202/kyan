@@ -13,15 +13,56 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
     return productsData.filter((p) => p.type === variant);
   }, [variant]);
 
+  const bannerImages = useMemo(() => {
+    return filteredProducts.slice(0, 3).map(p => imagesGlob[p.images[0]] || p.images[0]);
+  }, [filteredProducts]);
+
   return (
     <section className="bg-white min-h-[50vh] relative">
-      {/* Hero banner */}
-      <div className="relative h-[300px] md:h-[380px] overflow-hidden bg-ink">
-        {hero && <img src={hero} alt={t(titleKey)} className="absolute inset-0 w-full h-full object-cover" />}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/35" />
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 max-w-3xl mx-auto">
-          <h1 className="text-white text-3xl md:text-5xl font-black mb-3 drop-shadow-lg">{t(titleKey)}</h1>
-          <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-xl">{t("products.desc")}</p>
+      {/* Elegant Hero banner */}
+      <div className="relative h-[380px] md:h-[480px] overflow-hidden bg-gradient-to-br from-[#eaf6f7] via-white to-teal/10">
+        {/* Abstract shapes / patterns */}
+        <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-64 md:w-96 h-64 md:h-96 bg-teal/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-72 md:w-[400px] h-72 md:h-[400px] bg-teal/10 rounded-full blur-3xl pointer-events-none" />
+        
+        {/* Banner content */}
+        <div className="relative z-10 h-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-8 py-12 gap-8">
+          
+          {/* Text Content */}
+          <div className="text-center md:text-start md:max-w-xl z-20 flex-1 flex flex-col items-center md:items-start justify-center">
+            <div className="inline-block px-4 py-1.5 mb-4 md:mb-6 rounded-full bg-teal/10 text-teal text-xs font-bold tracking-widest uppercase shadow-sm border border-teal/20">
+              {t("products.label")}
+            </div>
+            <h1 className="text-ink text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight drop-shadow-sm">
+              {t(titleKey)}
+            </h1>
+            <p className="text-ink/70 text-sm md:text-lg leading-relaxed max-w-md">
+              {t("products.desc")}
+            </p>
+          </div>
+
+          {/* Image Collage */}
+          {bannerImages.length > 0 && (
+            <div className="hidden md:flex flex-1 relative h-full items-center justify-center">
+               <div className="relative w-full h-[320px]">
+                 {bannerImages[0] && (
+                   <div className="absolute top-4 right-8 w-44 h-44 rounded-3xl overflow-hidden shadow-2xl rotate-6 transform origin-bottom-right transition-transform hover:rotate-12 duration-500 border-2 border-white">
+                     <img src={bannerImages[0]} alt="" className="w-full h-full object-cover" />
+                   </div>
+                 )}
+                 {bannerImages[1] && (
+                   <div className="absolute bottom-0 left-12 w-40 h-40 rounded-3xl overflow-hidden shadow-2xl -rotate-6 transform origin-top-left z-10 transition-transform hover:-rotate-12 duration-500 border-2 border-white">
+                     <img src={bannerImages[1]} alt="" className="w-full h-full object-cover" />
+                   </div>
+                 )}
+                 {bannerImages[2] && (
+                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-20 border-4 border-white hover:scale-105 transition-transform duration-500">
+                     <img src={bannerImages[2]} alt="" className="w-full h-full object-cover" />
+                   </div>
+                 )}
+               </div>
+            </div>
+          )}
         </div>
       </div>
 

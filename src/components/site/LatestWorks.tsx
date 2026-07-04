@@ -30,6 +30,7 @@ for (let i = 1; i <= 10; i++) {
 
 export function LatestWorks({ tinted = false }: { tinted?: boolean }) {
   const { t, lang } = useI18n();
+  const isRtl = lang === "ar";
   const [active, setActive] = useState<Cat>("all");
   const [activeProject, setActiveProject] = useState(0);
 
@@ -47,6 +48,14 @@ export function LatestWorks({ tinted = false }: { tinted?: boolean }) {
     after: p.after,
     title: lang === "ar" ? `مشروع ${p.id}` : `Project ${p.id}`,
   }));
+
+  const handlePrevProject = () => {
+    setActiveProject((prev) => (prev > 0 ? prev - 1 : projects.length - 1));
+  };
+
+  const handleNextProject = () => {
+    setActiveProject((prev) => (prev < projects.length - 1 ? prev + 1 : 0));
+  };
 
   return (
     <section id="works" className={`${tinted ? "bg-[#eaf6f7]" : "bg-white"} py-16 md:py-20 px-4 md:px-8`}>
@@ -78,22 +87,22 @@ export function LatestWorks({ tinted = false }: { tinted?: boolean }) {
 
         {/* Before/After slider */}
         {projects.length > 0 && (
-          <div className="mt-12 md:mt-16 space-y-6">
-            <div className="flex flex-wrap justify-center gap-3">
-              {projects.map((proj, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveProject(idx)}
-                  className={`px-4 py-2 rounded-xl text-xs md:text-sm font-semibold border transition-colors ${
-                    activeProject === idx
-                      ? "bg-teal text-white border-teal shadow-md"
-                      : "bg-white text-ink/70 border-border hover:border-teal hover:text-teal"
-                  }`}
-                >
-                  {proj.title}
-                </button>
-              ))}
-            </div>
+          <div className="mt-12 md:mt-16 relative">
+            <button
+              onClick={handlePrevProject}
+              aria-label="prev project"
+              className="absolute -start-3 md:-start-5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md hover:bg-teal-dark transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
+            </button>
+            
+            <button
+              onClick={handleNextProject}
+              aria-label="next project"
+              className="absolute -end-3 md:-end-5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md hover:bg-teal-dark transition-colors"
+            >
+              <ChevronRight className="w-5 h-5 rtl:rotate-180" />
+            </button>
 
             <BeforeAfter
               key={activeProject}
