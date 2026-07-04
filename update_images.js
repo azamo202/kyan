@@ -16,8 +16,14 @@ async function main() {
       if (nameEnMatch) {
         const nameEn = nameEnMatch[1];
         const productFolder = path.join(assetsDir, nameEn);
+        const applicationsMatch = line.match(/applications:\s*(\[.*?\])/);
+        const applications = applicationsMatch ? JSON.parse(applicationsMatch[1].replace(/'/g, '"')) : [];
         if (fs.existsSync(productFolder)) {
-          const files = fs.readdirSync(productFolder).filter(f => !f.endsWith('.tmp.webp') && f.match(/\.(jpg|jpeg|png|webp)$/i));
+          const files = fs.readdirSync(productFolder).filter(f => {
+            if (f.endsWith('.tmp.webp') || !f.match(/\.(jpg|jpeg|png|webp)$/i)) return false;
+            const p = `/src/assets/${nameEn}/${f}`;
+            return !applications.includes(p);
+          });
           
           const imagesInfo = [];
           for (let f of files) {
