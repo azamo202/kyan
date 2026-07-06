@@ -31,8 +31,9 @@ function ProductSinglePage() {
   const [zoomedGallery, setZoomedGallery] = useState<{ images: string[], index: number } | null>(null);
   const [mainImageIndex, setMainImageIndex] = useState(0);
 
-  const sliderImages = product.images;
   const applicationImages = product.applications || [];
+  const filteredImages = product.images.filter(img => !applicationImages.includes(img));
+  const sliderImages = filteredImages.length > 0 ? filteredImages : product.images;
 
   return (
     <main className="min-h-screen bg-background text-foreground animate-fade-in flex flex-col">
@@ -56,14 +57,14 @@ function ProductSinglePage() {
             {/* Image Gallery */}
             <div className="flex flex-col gap-4">
               <div 
-                className="relative aspect-square md:aspect-[4/3] lg:aspect-square bg-muted rounded-3xl overflow-hidden border border-border shadow-sm flex items-center justify-center p-4 group cursor-pointer"
+                className="relative aspect-square md:aspect-[3/4] lg:aspect-[3/4] bg-muted/30 rounded-[2rem] overflow-hidden border border-border shadow-sm flex items-center justify-center p-8 group cursor-pointer hover:shadow-md transition-shadow"
                 onClick={() => setZoomedGallery({ images: sliderImages, index: mainImageIndex })}
               >
                 <img
                   key={mainImageIndex}
                   src={imagesGlob[sliderImages[mainImageIndex]] || sliderImages[mainImageIndex]}
                   alt={lang === "ar" ? product.nameAr : product.nameEn}
-                  className="w-full h-full object-contain animate-in fade-in duration-500"
+                  className="w-full h-full object-contain animate-in fade-in duration-500 rotate-90 scale-[1.35] drop-shadow-xl"
                 />
                 <button 
                   className="absolute bottom-4 end-4 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white shadow-md hover:scale-110 hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
@@ -242,15 +243,25 @@ function ProductSinglePage() {
           )}
 
           <div 
-            className="relative max-w-full max-h-[85vh] md:max-h-[90vh] w-auto flex items-center justify-center cursor-default" 
+            className="relative flex items-center justify-center cursor-default w-full h-full" 
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
-              key={zoomedGallery.index}
-              src={imagesGlob[zoomedGallery.images[zoomedGallery.index]] || zoomedGallery.images[zoomedGallery.index]} 
-              alt="Zoomed product" 
-              className="max-w-full max-h-[85vh] md:max-h-[90vh] object-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-400"
-            />
+            {(() => {
+              const currentImg = zoomedGallery.images[zoomedGallery.index];
+              const isSlab = !applicationImages.includes(currentImg);
+              return (
+                <img 
+                  key={zoomedGallery.index}
+                  src={imagesGlob[currentImg] || currentImg} 
+                  alt="Zoomed product" 
+                  className={`rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-400 object-contain ${
+                    isSlab 
+                      ? "rotate-90 w-[80vh] md:w-[85vh] max-w-none" 
+                      : "max-w-full max-h-[85vh] md:max-h-[90vh]"
+                  }`}
+                />
+              );
+            })()}
           </div>
         </div>
       )}

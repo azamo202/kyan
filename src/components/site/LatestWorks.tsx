@@ -24,7 +24,7 @@ for (let i = 1; i <= 10; i++) {
   const beforeKey = Object.keys(beforeAfterModules).find(k => k.endsWith(`/${i}.webp`));
   const afterKey = Object.keys(beforeAfterModules).find(k => k.endsWith(`/${i}-${i}.webp`));
   if (beforeKey && afterKey) {
-    projectsList.push({ before: beforeAfterModules[beforeKey], after: beforeAfterModules[afterKey], id: i });
+    projectsList.push({ before: beforeAfterModules[afterKey], after: beforeAfterModules[beforeKey], id: i });
   }
 }
 

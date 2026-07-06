@@ -95,6 +95,7 @@ const dict: Dict = {
   "contact.phonePh": { ar: "05xxxxxxxx", en: "05xxxxxxxx" },
   "contact.location": { ar: "الموقع", en: "Location" },
   "contact.locationVal": { ar: "بنها شارع المناخ، الرياض 14316", en: "Al-Manakh St., Riyadh 14316" },
+  "contact.openInMaps": { ar: "فتح في خرائط جوجل", en: "Open in Google Maps" },
   "contact.follow": { ar: "تابعنا على", en: "Follow Us" },
 
   // footer

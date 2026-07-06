@@ -15,12 +15,46 @@ export function Contact() {
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           <div className="bg-teal/5 border border-teal/20 rounded-3xl p-6 md:p-8">
             <h3 className="text-teal text-xl font-bold mb-6 text-start">{t("contact.send")}</h3>
-            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("تم الإرسال بنجاح!"); }}>
-              <Field label={t("contact.name")} required><input type="text" required placeholder={t("contact.namePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
-              <Field label={t("contact.email")}><input type="email" placeholder="example@email.com" className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
-              <Field label={t("contact.phone")} required><input type="tel" required placeholder={t("contact.phonePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
-              <Field label={t("contact.message")}><textarea rows={5} placeholder={t("contact.messagePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40 resize-none" /></Field>
-              <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-dark text-white py-3.5 rounded-lg font-medium transition-all hover:shadow-lg">
+            <form 
+              className="space-y-4" 
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const formData = new FormData(form);
+                const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="animate-pulse">جاري الإرسال...</span>';
+                btn.disabled = true;
+                
+                try {
+                  const res = await fetch("https://formsubmit.co/ajax/Kayanalmstkbl@gmail.com", {
+                    method: "POST",
+                    headers: { 'Accept': 'application/json' },
+                    body: formData,
+                  });
+                  if (res.ok) {
+                    alert("تم الإرسال بنجاح! سنتواصل معك قريباً.");
+                    form.reset();
+                  } else {
+                    alert("حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.");
+                  }
+                } catch (err) {
+                  alert("حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.");
+                } finally {
+                  btn.innerHTML = originalText;
+                  btn.disabled = false;
+                }
+              }}
+            >
+              <input type="hidden" name="_subject" value="رسالة جديدة من موقع كيان المستقبل!" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              
+              <Field label={t("contact.name")} required><input type="text" name="الاسم" required placeholder={t("contact.namePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
+              <Field label={t("contact.email")}><input type="email" name="البريد_الإلكتروني" placeholder="example@email.com" className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
+              <Field label={t("contact.phone")} required><input type="tel" name="رقم_الجوال" required placeholder={t("contact.phonePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40" /></Field>
+              <Field label={t("contact.message")}><textarea name="الرسالة" rows={5} placeholder={t("contact.messagePh")} className="w-full bg-white border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40 resize-none" /></Field>
+              <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-dark text-white py-3.5 rounded-lg font-medium transition-all hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed">
                 <span>{t("contact.submit")}</span>
                 <Send className="w-4 h-4" />
               </button>
@@ -55,6 +89,31 @@ export function Contact() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Map Section */}
+        <div className="mt-12 md:mt-16 relative w-full h-[350px] md:h-[450px] rounded-[2rem] overflow-hidden shadow-xl border border-border group bg-muted/20">
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-700" />
+          
+          <iframe
+            src="https://maps.google.com/maps?q=%D8%B4%D8%B1%D9%83%D8%A9+%D9%83%D9%8A%D8%A7%D9%86+%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%82%D8%A8%D9%84+%D9%84%D9%84%D8%B1%D8%AE%D8%A7%D9%85+%D9%88%D8%A7%D9%84%D8%A8%D9%88%D8%B1%D8%B3%D9%84%D8%A7%D9%86&t=m&z=15&output=embed&iwloc=near"
+            title="Kayan Location Map"
+            className="absolute inset-0 w-full h-full border-0 grayscale-[20%] opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+
+          <a
+            href="https://maps.app.goo.gl/DfawQopV876vD1n27"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-6 end-6 z-20 bg-white/95 backdrop-blur-md text-teal font-bold px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-lg border border-teal/10 flex items-center gap-2 hover:scale-105 hover:bg-white hover:text-teal-dark hover:shadow-teal/20 transition-all duration-300"
+          >
+            <MapPin className="w-5 h-5" />
+            <span className="text-sm md:text-base">{t("contact.openInMaps")}</span>
+          </a>
         </div>
       </div>
     </section>
