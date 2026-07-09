@@ -14,7 +14,10 @@ async function processImages(dir) {
         } else if (/\.(jpg|jpeg|png)$/i.test(entry.name)) {
             const webpPath = fullPath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
             try {
-                await sharp(fullPath).webp({ quality: 80 }).toFile(webpPath);
+                await sharp(fullPath)
+                    .resize({ width: 1920, withoutEnlargement: true })
+                    .webp({ quality: 80 })
+                    .toFile(webpPath);
                 await fs.unlink(fullPath);
                 console.log(`Converted and deleted: ${entry.name}`);
             } catch (err) {

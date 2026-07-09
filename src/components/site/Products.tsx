@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import chinese from "@/assets/images/porcelain-chinese.png";
+import chinese from "@/assets/images/porcelain-chinese.webp";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export function Products() {
