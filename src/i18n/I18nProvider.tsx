@@ -40,13 +40,13 @@ const dict: Dict = {
 
   // products listing
   "products.label": { ar: "منتجاتنا", en: "Our Products" },
-  "products.title": { ar: "منتجاتنا", en: "Our Products" },
+  "products.title": { ar: "البورسلان", en: "Porcelain" },
   "products.subtitle": {
     ar: "اكتشف تشكيلاتنا المختارة من أجود أنواع البورسلان بأعلى معايير الجودة والتصميم",
     en: "Discover our curated selection of finest porcelain with the highest standards of quality and design.",
   },
-  "products.italian": { ar: "البورسلان الإيطالي", en: "Italian Porcelain" },
-  "products.chinese": { ar: "البورسلان الصيني", en: "Chinese Porcelain" },
+  "products.italian": { ar: "البورسلان", en: "Porcelain" },
+  "products.chinese": { ar: "البورسلان", en: "Porcelain" },
   "products.desc": {
     ar: "بورسلان عالي الجودة بتصاميم عصرية وتشطيبات متعددة تناسب مختلف الاستخدامات",
     en: "High-quality porcelain with modern designs and multiple finishes suitable for different uses.",

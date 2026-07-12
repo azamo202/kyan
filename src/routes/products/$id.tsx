@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { productsData, imagesGlob } from "@/lib/productsData";
 
 import { useState } from "react";
-import { MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MessageSquare, ShieldCheck, Flame, Droplets, FlaskConical, Palette, ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/products/$id")({
   loader: ({ params }) => {
@@ -121,32 +121,40 @@ function ProductSinglePage() {
                 {lang === "ar" ? product.nameAr : product.nameEn}
               </h1>
 
-              <div className="py-6 border-y border-border mb-8">
-                <div className="flex flex-col gap-1">
+              <div className="py-6 border-y border-border mb-8 flex flex-col sm:flex-row gap-6">
+                <div className="flex flex-col gap-1 flex-1">
                   <span className="text-sm text-muted-foreground">{lang === "ar" ? "المقاس" : "Size"}</span>
                   <span className="font-mono text-lg font-bold text-teal" dir="ltr">{product.size}</span>
+                </div>
+                <div className="flex flex-col gap-1 flex-1 sm:border-s border-border sm:ps-6">
+                  <span className="text-sm text-muted-foreground">{lang === "ar" ? "بلد المنشأ" : "Country of Origin"}</span>
+                  <span className="text-lg font-bold text-foreground">{lang === "ar" ? "الصين" : "China"}</span>
                 </div>
               </div>
 
               {/* Features grid */}
-              <h3 className="text-lg font-bold mb-4">{lang === "ar" ? "المميزات" : "Features"}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-                 <div className="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-2xl bg-muted/50 border border-border">
-                  <ShieldCheck className="w-8 h-8 text-teal" />
-                  <span className="text-xs font-semibold leading-tight">{lang === "ar" ? "مقاوم للخدش" : "Scratch Resistant"}</span>
-                 </div>
-                 <div className="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-2xl bg-muted/50 border border-border">
-                  <Flame className="w-8 h-8 text-teal" />
-                  <span className="text-xs font-semibold leading-tight">{lang === "ar" ? "مقاوم للحرارة" : "Heat Resistant"}</span>
-                 </div>
-                 <div className="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-2xl bg-muted/50 border border-border">
-                  <Droplets className="w-8 h-8 text-teal" />
-                  <span className="text-xs font-semibold leading-tight">{lang === "ar" ? "مقاوم للماء" : "Low Water Abs."}</span>
-                 </div>
-                 <div className="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-2xl bg-muted/50 border border-border">
-                  <FlaskConical className="w-8 h-8 text-teal" />
-                  <span className="text-xs font-semibold leading-tight">{lang === "ar" ? "مقاوم كيميائي" : "Chemical Res."}</span>
-                 </div>
+              <h3 className="text-lg font-bold mb-5">{lang === "ar" ? "المميزات" : "Features"}</h3>
+              <div className="grid grid-cols-1 gap-3 mb-10">
+                {[
+                  { icon: <Palette className="w-5 h-5 text-teal" />, ar: "ثبات الألوان", en: "Color Stability" },
+                  { icon: <Droplets className="w-5 h-5 text-teal" />, ar: "مانع للامتصاص", en: "Non-absorbent" },
+                  { icon: <ShieldCheck className="w-5 h-5 text-teal" />, ar: "مقاوم للخدوش", en: "Scratch Resistant" },
+                  { icon: <Flame className="w-5 h-5 text-teal" />, ar: "يتحمل درجات الحرارة العالية", en: "High Heat Resistant" },
+                  { icon: <FlaskConical className="w-5 h-5 text-teal" />, ar: "لا يتأثر بالمواد الكيميائية", en: "Chemical Resistant" },
+                ].map((feature, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-4 px-5 py-4 rounded-2xl bg-muted/40 border border-border/50 hover:border-teal/40 hover:bg-muted/70 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-teal/10 group-hover:bg-teal/20 group-hover:scale-110 transition-all duration-300">
+                      {feature.icon}
+                    </div>
+                    <span className="text-sm font-semibold text-foreground/90 leading-snug">
+                      {lang === "ar" ? feature.ar : feature.en}
+                    </span>
+                    <div className="ms-auto w-2 h-2 rounded-full bg-teal/40 group-hover:bg-teal transition-colors duration-300 shrink-0" />
+                  </div>
+                ))}
               </div>
 
               {/* Action */}

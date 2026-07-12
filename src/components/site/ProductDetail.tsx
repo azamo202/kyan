@@ -96,12 +96,13 @@ export function ProductDetail({ variant, hero }: { variant: Variant; hero: strin
                 </div>
 
                 {/* Bottom details block */}
-                <div className="flex flex-col gap-1.5 px-1">
-                  <h3 className="text-foreground text-base md:text-lg font-medium truncate transition-colors group-hover:text-teal">
+                <div className="flex flex-col gap-2 px-1 pb-1 text-center mt-2">
+                  <h3 className="text-foreground text-base md:text-lg font-bold truncate transition-colors group-hover:text-teal">
                     {lang === "ar" ? p.nameAr : p.nameEn}
                   </h3>
-                  <div className="text-xs md:text-sm text-muted-foreground font-light">
+                  <div className="flex flex-col gap-1 text-xs md:text-sm text-muted-foreground font-medium">
                     <span dir="ltr" className="font-mono tracking-wider">{p.size}</span>
+                    <span>{lang === "ar" ? "بلد المنشأ: الصين" : "Origin: China"}</span>
                   </div>
                 </div>
               </Link>
