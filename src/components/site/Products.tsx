@@ -12,8 +12,17 @@ export function Products() {
     <section id="products" className="py-20 md:py-28 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-14">
-          <h2 className="text-3xl md:text-5xl font-black text-ink">{t("products.title")}</h2>
-          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">{t("products.subtitle")}</p>
+          <div className="space-y-2">
+            <h2 className="text-3xl md:text-5xl font-black text-ink tracking-tight">
+              {t("products.label")}
+            </h2>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal/5 border border-teal/10 text-teal text-sm font-bold tracking-wider">
+              {t("products.title")}
+            </div>
+          </div>
+          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
+            {t("products.subtitle")}
+          </p>
         </div>
 
         <div className="grid md:grid-cols-1 max-w-3xl mx-auto gap-6 md:gap-8">
